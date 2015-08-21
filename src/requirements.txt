@@ -1,0 +1,9 @@
+# This file collects all required third-party applications that are needed
+# to run this project.
+SQLAlchemy>=0.8
+qrcode
+flask-session
+flask
+
+#pip install git+git://github.com/ojii/pymaging.git#egg=pymaging
+#pip install git+git://github.com/ojii/pymaging-png.git#egg=pymaging-png
