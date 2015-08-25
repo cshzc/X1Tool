@@ -17,7 +17,7 @@ class ApplicationInfo(Model):
 
     def serialize(self):
         try:
-            metadata = {self.id: {'name': self.name, 'author': self.author, 'category': self.category_id, 'comments': self.comments}}
+            metadata = {self.id: {'id': self.id, 'name': self.name, 'author': self.author, 'category': self.category_id, 'comments': self.comments}}
             if self.resource is not None:
                 resource = json.loads(self.resource)
                 metadata[self.id] = dict(metadata[self.id], **resource)

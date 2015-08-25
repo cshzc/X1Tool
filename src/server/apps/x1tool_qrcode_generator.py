@@ -7,7 +7,7 @@ from utils.lib_qrcode import *
 
 class X1ToolQRCodeGenerator(X1Tool):
     'appid: a3fb483cda6f212a652a0751d3cdfde333317998cbc409ea9a87b0a927b0dd56'
-    DEFAULT_METADATA = {'name': "Qrcode Generator", 'author': "Admin", 'comments': "Enjoy it.", 'template': 'programmer/qrcode.tpl', 'category': X1Category.PROGRAMMER}
+    DEFAULT_METADATA = {'name': "Qrcode Generator", 'author': "Admin", 'comments': "Enjoy it.", 'template': 'programmer/qrcode.tpl', 'route': '/programmer/qrcode/', 'category': X1Category.PROGRAMMER}
 
     def __init__(self, metadata=None):
         if metadata is None:
