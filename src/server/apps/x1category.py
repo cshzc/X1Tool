@@ -2,12 +2,11 @@
 # -*- coding: utf-8 -*-
 import logging
 
-
 class X1Category(object):
     DEFAULT = 'F60009DD-FC28-4D2B-9DE0-8CDC69645AFC'
     FINANCE = 'C388A79C-8F88-4A0C-9E1C-4D73434E79AA'
     LIFE = '60AE8F8B-CE6F-4E70-AC38-B096396612E8'
-    PROGRAMMER = 'C388A79C-8F88-4A0C-9E1C-4D73434E79AA'
+    PROGRAMMER = '95EB1A58-4A6C-11E5-B019-00163E00590E'
 
     __id = DEFAULT
     __metadata = {'name': 'default', 'icon': 'fa-desktop'}
@@ -24,11 +23,9 @@ class X1Category(object):
     def metadata(self):
         return self.__metadata
 
-DEFAULT_X1_CATEGORY = {X1Category.DEFAULT: {'name': 'default', 'icon': 'fa-desktop'},
-                       X1Category.PROGRAMMER: {'name': 'programmer', 'icon': 'fa-desktop'},
+DEFAULT_X1_CATEGORY = {X1Category.PROGRAMMER: {'name': 'programmer', 'icon': 'fa-desktop'},
                        X1Category.FINANCE: {'name': 'finance', 'icon': 'fa-bank'},
                        X1Category.LIFE: {'name': 'life', 'icon': 'fa-coffee'}}
-
 
 def get_category(uuid):
     try:
