@@ -54,6 +54,7 @@ class DBConnector(object):
             return item_list
         except Exception, e:
             logging.error(str(e))
+            self.__scope_session.rollback()
 
         return items
 
@@ -64,81 +65,111 @@ class DBConnector(object):
         return self.get_record(ApplicationCategory, lambda category: category.serialize(), **filter_condition)
 
     def register_category(self, category_id, metadata):
-        category = self.__scope_session.query(ApplicationCategory).filter_by(id=category_id).first()
+        try:
+            category = self.__scope_session.query(ApplicationCategory).filter_by(id=category_id).first()
 
-        if category is None:
-            category = ApplicationCategory()
-            self.__scope_session.add(category)
+            if category is None:
+                category = ApplicationCategory()
+                self.__scope_session.add(category)
 
-        category.id = category_id
-        category.name = metadata.pop('name')
-        if category is not None:
-            category.resource = JSONEncoder().encode(metadata)
+            category.id = category_id
+            category.name = metadata.pop('name')
+            if category is not None:
+                category.resource = JSONEncoder().encode(metadata)
 
-        self.__scope_session.flush()
-        self.__scope_session.commit()
+            self.__try_commit()
+        except Exception, e:
+            logging.error(str(e))
+            self.__scope_session.rollback()
 
     #registry or update
     def register_application(self, appid, metadata):
-        app = self.__scope_session.query(ApplicationInfo).filter_by(id=appid).first()
+        try:
+            app = self.__scope_session.query(ApplicationInfo).filter_by(id=appid).first()
 
-        if app is None:
-            app = ApplicationInfo()
-            self.__scope_session.add(app)
+            if app is None:
+                app = ApplicationInfo()
+                self.__scope_session.add(app)
 
-        app.id = appid
-        app.name = metadata.pop('name')
-        app.author = metadata.pop('author')
-        app.comments = metadata.pop('comments')
-        app.category_id = metadata.pop('category')
-        if metadata is not None:
-            app.resource = JSONEncoder().encode(metadata)
+            app.id = appid
+            app.name = metadata.pop('name')
+            app.author = metadata.pop('author')
+            app.comments = metadata.pop('comments')
+            app.category_id = metadata.pop('category')
+            if metadata is not None:
+                app.resource = JSONEncoder().encode(metadata)
 
-        self.__scope_session.flush()
-        self.__scope_session.commit()
+            self.__try_commit()
+        except Exception, e:
+            logging.error(str(e))
+            self.__scope_session.rollback()
 
     def log_application_usage(self, application_id, session_id, user_id, start_time, end_time, args, results):
-        application_usage_log = ApplicationUsageLog(appid=application_id, sid=session_id, uid=user_id, stime=start_time, etime=end_time, inputs=args, outputs=results)
+        try:
+            application_usage_log = ApplicationUsageLog(appid=application_id, sid=session_id, uid=user_id, stime=start_time, etime=end_time, inputs=args, outputs=results)
+            self.__scope_session.add(application_usage_log)
 
-        self.__scope_session.add(application_usage_log)
-        self.__scope_session.flush()
-        self.__scope_session.commit()
+            self.__try_commit()
+        except Exception, e:
+            logging.error(str(e))
+            self.__scope_session.rollback()
 
     def log_user_login(self, user_id, session_id, ip, address):
-        utc_time = datetime.utcnow()
-        user_visit_log = UserVisitLog(uid=user_id, sid=session_id, srcip=ip, location=address, login_time=utc_time)
-        self.__scope_session.add(user_visit_log)
+        try:
+            utc_time = datetime.utcnow()
+            login_info = self.__scope_session.query(UserVisitLog).filter_by(uid=user_id, sid=session_id, logout_time=None).order_by(desc(UserVisitLog.login_time)).first()
+            if login_info is not None:
+                #print login_info
+                diff = utc_time - login_info.login_time
+                if diff.total_seconds() < (12 * 3600):
+                    return
 
-        self.__scope_session.flush()
-        self.__scope_session.commit()
+            user_visit_log = UserVisitLog(uid=user_id, sid=session_id, srcip=ip, location=address, login_time=utc_time)
+            self.__scope_session.add(user_visit_log)
+
+            self.__try_commit()
+        except Exception, e:
+            logging.error(str(e))
+            self.__scope_session.rollback()
 
     def log_user_logout(self, user_id, session_id):
         try:
             user_visit_log = self.__scope_session.query(UserVisitLog).filter_by(uid=user_id, sid=session_id).one()
             utc_time = datetime.utcnow()
             user_visit_log.logout_time = utc_time
-            self.__scope_session.flush()
-            self.__scope_session.commit()
-        except:
-            logging.error('invalid logout.')
+
+            self.__try_commit()
+        except Exception, e:
+            logging.error(str(e))
+            self.__scope_session.rollback()
 
     def log_session(self, session_id):
-        session_log = self.__scope_session.query(SessionLog).filter_by(id=session_id).first()
+        try:
+            session_log = self.__scope_session.query(SessionLog).filter_by(id=session_id).first()
 
-        if session_log is None:
-            start_time = datetime.utcnow()
-            session_log = SessionLog(id=session_id, stime=start_time, atime=start_time)
-            self.__scope_session.add(session_log)
-        else:
-            active_time = datetime.utcnow()
-            session_log.atime = active_time
+            if session_log is None:
+                start_time = datetime.utcnow()
+                session_log = SessionLog(id=session_id, stime=start_time, atime=start_time)
+                self.__scope_session.add(session_log)
+            else:
+                active_time = datetime.utcnow()
+                session_log.atime = active_time
 
-        self.__scope_session.flush()
-        self.__scope_session.commit()
+            self.__try_commit()
+        except Exception, e:
+            logging.error(str(e))
+            self.__scope_session.rollback()
 
     def execute(self, sql_commands):
         self.__session_maker().execute(sql_commands)
 
+    def __try_commit(self):
+        try:
+            self.__scope_session.flush()
+            self.__scope_session.commit()
+        except Exception, e:
+            logging.error('Database: %s' % str(e))
+            self.__scope_session.rollback()
 
 
 if __name__ == '__main__':
@@ -146,7 +177,7 @@ if __name__ == '__main__':
         'host': 'localhost',
         'user': 'root',
         'passwd': '',
-        'db': 'X1ToolDatabase',
+        'db': 'TestX1Tool',
         'charset': 'utf8'
     }
     MYSQL_DATABASE_URI = 'mysql://%s:%s@%s/%s?charset=%s'%(mysql_db_config['user'],
