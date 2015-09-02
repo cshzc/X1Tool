@@ -31,7 +31,7 @@
             <table>
                 <tbody>
                     <tr>
-                        <td>密码:&nbsp&nbsp</td>
+                        <td>密码:&nbsp;&nbsp;</td>
                         <td><input class="form-control" id="crypto_pwd" type="text" placeholder="输入密码" required/></td>
                     </tr>
                 </tbody>

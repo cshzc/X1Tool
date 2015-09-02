@@ -9,9 +9,9 @@
                 <tbody>
                     <tr>
                         <td><input class="form-control" id="ip_address" placeholder="IP 地址" required></input></td>
-                        <td>&nbsp&nbsp</td>
+                        <td>&nbsp;&nbsp;</td>
                         <td><button class="btn btn-primary" id="locate" type="submit">定位</button></td>
-                        <td>&nbsp&nbsp</td>
+                        <td>&nbsp;&nbsp;</td>
                         <td><h5 id="location"></h5></td>
                     </tr>
                 </tbody>

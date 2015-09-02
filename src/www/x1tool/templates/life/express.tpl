@@ -41,7 +41,7 @@
                         <td>
                             <input class="form-control" id="no"  placeholder="粘贴或输入快递单号" style="width:480px;"></input>
                         </td>
-                        <td>&nbsp&nbsp&nbsp</td>
+                        <td>&nbsp;&nbsp;&nbsp;</td>
                         <td><button class="btn btn-primary" id="query" type="submit">查询</button></td>
                     </tr>
                 </tbody>

@@ -2,6 +2,7 @@
 import sys
 from json import *
 import logging
+import datetime
 
 # sys.path.append('/opt/x1tool')
 from server.x1server import *
@@ -85,8 +86,17 @@ class Utils(object):
     def get_result(self, app_id, args):
         return X1Server.process_request(app_id, args)
 
-    def __get_apps(self):
-        pass
+    def get_admin_result(self, admin_type):
+        raw_out = db.execute('SELECT * FROM tb_%s' % admin_type)
+        dict_out = {}
+        for i in xrange(len(raw_out)):
+            row_item = []
+            for item in raw_out[i]:
+                # Convert datatime.datetime to date string
+                if type(item) == datetime:
+                    row_item.append(item.ctime())
+                else:
+                    row_item.append(item)
+            dict_out[i] = row_item
+        return JSONEncoder().encode(dict_out)
 
-    def __categories(self):
-        pass

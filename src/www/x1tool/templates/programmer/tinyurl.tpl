@@ -12,14 +12,14 @@
         </ul>
         <br/>
         <div>
-            <table>
+            <table style="width: 80%;">
                 <tbody>
                     <tr>
-                        <td><input class="form-control" id="raw_url" style="width:320px;" placeholder="粘贴或输入原网址" required></input></td>
-                        <td>&nbsp&nbsp</td>
-                        <td><button class="btn btn-primary" id="start" type="submit">转换</button></td>
-                        <td>&nbsp&nbsp</td>
-                        <td><input class="form-control" id="result" type="text" placeholder="生成结果"></input></td>
+                        <td><input class="form-control" id="raw_url" placeholder="粘贴或输入原网址" required></input></td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td><button class="btn btn-primary" id="start" style="width: 100%;" type="submit">转换</button></td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td><input class="form-control" id="result" style="width: 60%;" type="text" placeholder="生成结果"></input></td>
                     </tr>
                 </tbody>
             </table>
