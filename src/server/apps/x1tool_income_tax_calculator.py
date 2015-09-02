@@ -18,10 +18,10 @@ class X1ToolTaxCalculator(X1Tool):
         social_insurance_enable = False
         insurance_rate_table = None
         if 'include_social_insurance' in args:
-            social_insurance_enable = args['include_social_insurance']
+            social_insurance_enable = (args['include_social_insurance'] == '1')
             if social_insurance_enable:
-                if ('social_insurance_rate_table' in args) and (args['rate_table'] != ""):
-                    insurance_rate_table = eval(args['social_insurance_rate_table'])
+                if ('rate_table' in args) and (args['rate_table'] != ""):
+                    insurance_rate_table = eval(args['rate_table'])
 
         if 'pre_tax_income' in args:
             pre_tax_income = int(args['pre_tax_income'])

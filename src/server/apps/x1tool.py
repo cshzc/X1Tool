@@ -20,7 +20,7 @@ class X1Tool(object):
     def appid(cls):
         """per tool GUID"""
         try:
-            return hashlib.sha256(cls.__name__).hexdigest()
+            return hashlib.sha224(cls.__name__).hexdigest()
         except Exception, e:
             logging.error('Fail to get appid: %s' % e)
             return "0000000000"

@@ -161,7 +161,7 @@ class DBConnector(object):
             self.__scope_session.rollback()
 
     def execute(self, sql_commands):
-        self.__session_maker().execute(sql_commands)
+        return self.__session_maker().execute(sql_commands).fetchall()
 
     def __try_commit(self):
         try:
@@ -194,6 +194,7 @@ if __name__ == '__main__':
     db_connector.drop_db()
     db_connector.create_db()
 
+    print db_connector.execute('select * from tb_session_log')
 
     from server.apps.x1category import *
     db_connector.register_category(X1Category.FINANCE, get_category(X1Category.FINANCE))

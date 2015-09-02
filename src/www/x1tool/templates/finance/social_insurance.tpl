@@ -32,7 +32,7 @@
                     <td>养老</td>
                     <td>
                         <span>
-                            <input id="pension_rate" type="text" disabled="disabled" value="8">
+                            <input id="pension_rate" type="text" value="8">
                             <label>%</label>
                         </span>
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -43,7 +43,7 @@
                     <td>医疗</td>
                     <td>
                         <span>
-                            <input id="medical_rate" type="text" disabled="disabled" value="2">
+                            <input id="medical_rate" type="text" value="2">
                             <label>%</label>
                         </span>
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -54,7 +54,7 @@
                     <td>失业</td>
                     <td>
                         <span>
-                            <input id="unemployment_rate"type="text" disabled="disabled" value="1">
+                            <input id="unemployment_rate"type="text" value="1">
                             <label>%</label>
                         </span>
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -66,7 +66,7 @@
                     <td>
                         <div style="visibility: hidden;">
                             <span>
-                                <input id="occupational_rate" class="ipt ime" type="text" disabled="disabled" value="0">
+                                <input id="occupational_rate" class="ipt ime" type="text" value="0">
                                 <label>%</label>
                             </span>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -135,7 +135,7 @@
                 for (var i = 0; i < inputs.length; i++) {
                     var input = inputs[i];
                     name = input.id.replace(/_.*/, '')
-                    rate_table[name] = parseInt(input.value)/100
+                    rate_table[name] = parseFloat(input.value)/100
                 }
 
 

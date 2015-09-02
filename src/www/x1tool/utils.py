@@ -27,7 +27,8 @@ class Utils(object):
             'Qrcode Generator': u'QRCode 生成器',
             'IP Locator': u'国内 IP 定位',
             'Tiny URL Generator': u'短地址生成器',
-
+            'Code Lint': u'代码格式化',
+            'Social Insurance Calculator': u'五险一金计算器',
         }
 
     def get_default_apps(self):
@@ -76,7 +77,10 @@ class Utils(object):
         '''
         # print orignal_string
         # return orignal_string
-        return self._strings[orignal_string]
+        try:
+            return self._strings[orignal_string]
+        except:
+            return orignal_string
 
     def get_result(self, app_id, args):
         return X1Server.process_request(app_id, args)

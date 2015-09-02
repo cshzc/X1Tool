@@ -16,18 +16,15 @@ def calculate_insurance(salary, rate_table=None):
     result = dict()
     total = 0
     for item in PERSONAL_INSURANCE_RATE:
-        print item
         result[item] = PERSONAL_INSURANCE_RATE[item] * salary
         if item in rate_table:
             rate = float(rate_table[item])
-            print rate
             if (rate >= 0) and (rate < 1):
                 result[item] = rate * salary
 
         total += result[item]
 
     result['total'] = total
-    print result
 
     return result
 

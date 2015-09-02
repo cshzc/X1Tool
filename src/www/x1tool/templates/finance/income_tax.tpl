@@ -66,7 +66,7 @@
                         <td>养老</td>
                         <td>
                             <span>
-                                <input id="pension_rate" type="text" disabled="disabled" value="8">
+                                <input id="pension_rate" type="text" value="8">
                                 <label>%</label>
                             </span>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -77,7 +77,7 @@
                         <td>医疗</td>
                         <td>
                             <span>
-                                <input id="medical_rate" type="text" disabled="disabled" value="2">
+                                <input id="medical_rate" type="text" value="2">
                                 <label>%</label>
                             </span>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -88,7 +88,7 @@
                         <td>失业</td>
                         <td>
                             <span>
-                                <input id="unemployment_rate"type="text" disabled="disabled" value="1">
+                                <input id="unemployment_rate"type="text" value="1">
                                 <label>%</label>
                             </span>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -130,14 +130,15 @@
                             </span>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             <span id="housing_fee" style="color:#1C81C7"></span>
-                        </td>
+			    <span><p><input type="checkbox" id="more"><label>机关、事业单位等补贴</label></p></span>
+			</td>
                     </tr>
                     <tr id="subsidy" style="display: none;">
                         <td>住房补贴</td>
                         <td>
                             <!--<div style="visibility: hidden;">-->
                                 <span>
-                                    <input id="subsidy_rate" type="text" value="9">
+                                    <input id="subsidy_rate" type="text" value="0">
                                     <label>%</label>
                                 </span>
                                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -169,9 +170,11 @@
         $("#more").click(function () {
             if ($("#subsidy").attr("style") == "display: none;") {
                 $("#subsidy").attr("style", "");
+		$("#subsidy input").val(9)
             } else {
                 $("#subsidy").attr("style", "display: none;");
-            }
+		$("#subsidy input").val(0)
+	   }
             
         });
 
@@ -198,11 +201,11 @@
 
                 if ($("#social_insurance").attr("style") != "display: none;"){
                     var rate_table = {};
-                    var inputs = $("#social_insurance input")
+                    var inputs = $("#social_insurance input[type=text]") 
                     for (var i = 0; i < inputs.length; i++) {
                         var input = inputs[i];
                         name = input.id.replace(/_.*/, '')
-                        rate_table[name] = parseInt(input.value)/100
+                        rate_table[name] = parseFloat(input.value)/100
                     }
 
                     post_data.rate_table = JSON.stringify(rate_table)
@@ -226,7 +229,7 @@
                                 id = key + '_fee'
                                 try
                                 {
-                                    $("#" + id).text(insurance[key].toFixed(1))
+                                    $("#" + id).text(insurance[key].toFixed(2))
                                 }
                                 catch(e)
                                 {

@@ -17,8 +17,9 @@ class X1ToolSocialInsuranceCalculator(X1Tool):
     def run(self, args):
         print args
         if 'salary' in args:
-            if ('rate_table' in args) and (args['rate_table'] != ""):
-                return calculate_insurance(args['salary'], eval(args['rate_table']))
+            if 'rate_table' in args:
+                if args['rate_table'] != "":
+                    return calculate_insurance(args['salary'], eval(args['rate_table']))
             else:
                 return calculate_insurance(args['salary'])
 
