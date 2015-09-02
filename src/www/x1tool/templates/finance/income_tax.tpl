@@ -15,7 +15,7 @@
                                 <option>纳税额</option>
                             </select>
                         </td>
-                        <td>&nbsp&nbsp;&nbsp;</td>
+                        <td>&nbsp;&nbsp;&nbsp;</td>
                         <td><input class="form-control" id="value" type="text" placeholder="收入额" required/></td>
                         <td>&nbsp;&nbsp;</td>
                         <td><button class="btn btn-primary" id="calculate" type="submit">开始计算</button></td>

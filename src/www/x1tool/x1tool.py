@@ -2,13 +2,15 @@
 import sys
 sys.path.append('/opt/x1tool')
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask.ext.httpauth import HTTPBasicAuth
 from utils import Utils
 
 # Import server modules
 from server.x1server import *
 
 X1Tool = Flask('X1Tool')
+auth = HTTPBasicAuth()
 utils = Utils()
 
 X1Tool.debug = True
@@ -34,11 +36,28 @@ def write_log(string):
 ''' Wrapper of render_template
 '''
 def render_x1_template(tpl = 'index.tpl', tpl_data = tpl_data):
-    return render_template(tpl, tpl_data = tpl_data)
+    try:
+        return render_template(tpl, tpl_data = tpl_data)
+    except:
+        return render_template('coming.tpl', tpl_data = tpl_data)
+
+@auth.get_password
+def get_password(username):
+    if username == 'admin':
+        return 'citrix'
+    return None
 
 @X1Tool.route('/')
 def default():
     return render_x1_template('index.tpl')
+
+@X1Tool.route('/x1admin/', methods=['GET', 'POST'])
+#@auth.login_required
+def admin():
+    if request.method == 'GET':
+        return render_x1_template('/admin/admin.tpl')
+    else:
+        return utils.get_admin_result(request.form['type'])
 
 @X1Tool.route('/customize/', methods=['GET', 'POST'])
 def customize():
@@ -70,9 +89,9 @@ for (category_name, category) in app_list.items():
     for app_info in category:
         X1Tool.add_url_rule(app_info['route'], view_func = request_handler, methods=['GET', 'POST'])
 
-# @X1Tool.url_value_preprocessor
-# def session_preprocessor(endpoint, values):
-#     X1Server.pre_process(request)
+@X1Tool.url_value_preprocessor
+def session_preprocessor(endpoint, values):
+    X1Server.pre_process(request)
 
 if __name__ == '__main__':
     X1Tool.run('0.0.0.0', 8080)
