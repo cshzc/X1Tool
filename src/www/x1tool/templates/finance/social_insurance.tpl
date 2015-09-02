@@ -8,9 +8,9 @@
             <tbody>
                 <tr>
                     <td><label>月基本工资</label><td>
-                    <td>&nbsp&nbsp&nbsp</td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><input class="form-control" id="salary" type="text" placeholder="收入额" required/></td>
-                    <td>&nbsp&nbsp&nbsp</td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><button class="btn btn-primary" id="calculate" type="submit">开始计算</button></td>
                 </tr>
                 <tr><td><p><br/></p></td></tr>
