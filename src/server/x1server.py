@@ -8,7 +8,7 @@ from tool_factory import *
 from flask import session
 from flask_session import *
 from apps.x1category import *
-
+from apps.utils.lib_locate_ip import *
 ANONYMOUS_TAG = "anony_"
 
 mysql_db_config = {
@@ -55,10 +55,6 @@ class X1Server(object):
                 user_id = ANONYMOUS_TAG + session_id
                 session['uid'] = user_id
 
-            if address is None:
-                #get address from ip
-                address = "nanjing"
-
             try:
                 g_db_connector.log_user_login(user_id, session_id, ip, address)
             except Exception, e:
@@ -90,7 +86,6 @@ class X1Server(object):
     def pre_process(request):
         try:
             session_id = session.sid
-            print session_id
             try:
                 g_db_connector.log_session(session_id)
             except Exception, e:
@@ -98,7 +93,14 @@ class X1Server(object):
 
             user_id = session.get('uid', None)
             if user_id is None:
-                X1Server.process_login(user_id, request.remote_addr)
+                addr = None
+                try:
+                    srcip = request.remote_addr
+                    addr = get_formatted_location(srcip)
+                except Exception, e:
+                    logging.error('Database: %s' % str(e))
+
+                X1Server.process_login(user_id, srcip, addr)
         except Exception, e:
             logging.error(str(e))
 

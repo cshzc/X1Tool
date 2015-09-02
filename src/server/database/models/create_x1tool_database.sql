@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: X1ToolDatabase
 -- ------------------------------------------------------
--- Server version	5.5.43-0ubuntu0.14.04.1
+-- Server version	5.5.44-0ubuntu0.14.10.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -17,7 +17,8 @@
 
 -- Create Database 
 Drop Database IF EXISTS `X1ToolDatabase`;
-CREATE DATABASE `X1ToolDatabase`;
+CREATE DATABASE `X1ToolDatabase` character set utf8;
+
 USE `X1ToolDatabase`;
 
 --
@@ -28,11 +29,11 @@ DROP TABLE IF EXISTS `tb_application_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tb_application_category` (
-  `id` varchar(256) NOT NULL,
-  `name` varchar(256) DEFAULT NULL,
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `resource` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,16 +44,16 @@ DROP TABLE IF EXISTS `tb_application_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tb_application_info` (
-  `id` varchar(256) NOT NULL,
+  `id` varchar(255) NOT NULL,
   `resource` varchar(1024) DEFAULT NULL,
-  `name` varchar(256) DEFAULT NULL,
-  `author` varchar(128) DEFAULT NULL,
-  `comments` varchar(256) DEFAULT NULL,
-  `category_id` varchar(256) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `author` varchar(255) DEFAULT NULL,
+  `comments` varchar(1024) DEFAULT NULL,
+  `category_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `tb_application_info_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `tb_application_category` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,11 +65,11 @@ DROP TABLE IF EXISTS `tb_application_usage_log`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tb_application_usage_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sid` varchar(256) DEFAULT NULL,
-  `appid` varchar(256) DEFAULT NULL,
-  `uid` varchar(256) DEFAULT NULL,
-  `inputs` varchar(256) DEFAULT NULL,
-  `outputs` varchar(256) NOT NULL,
+  `sid` varchar(255) DEFAULT NULL,
+  `appid` varchar(255) DEFAULT NULL,
+  `uid` varchar(255) DEFAULT NULL,
+  `inputs` varchar(1024) DEFAULT NULL,
+  `outputs` varchar(1024) NOT NULL,
   `stime` datetime NOT NULL,
   `etime` datetime NOT NULL,
   PRIMARY KEY (`id`),
@@ -76,7 +77,7 @@ CREATE TABLE `tb_application_usage_log` (
   KEY `appid` (`appid`),
   CONSTRAINT `tb_application_usage_log_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `tb_session_log` (`id`),
   CONSTRAINT `tb_application_usage_log_ibfk_2` FOREIGN KEY (`appid`) REFERENCES `tb_application_info` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -87,11 +88,11 @@ DROP TABLE IF EXISTS `tb_session_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tb_session_log` (
-  `id` varchar(128) NOT NULL,
+  `id` varchar(255) NOT NULL,
   `stime` datetime NOT NULL,
   `atime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,14 +104,14 @@ DROP TABLE IF EXISTS `tb_user_visit_log`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tb_user_visit_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` varchar(256) NOT NULL,
+  `uid` varchar(255) NOT NULL,
   `login_time` datetime NOT NULL,
   `logout_time` datetime DEFAULT NULL,
-  `sid` varchar(256) NOT NULL,
-  `srcip` varchar(128) NOT NULL,
-  `location` varchar(256) DEFAULT NULL,
+  `sid` varchar(255) NOT NULL,
+  `srcip` varchar(255) NOT NULL,
+  `location` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -122,7 +123,7 @@ CREATE TABLE `tb_user_visit_log` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-21 17:39:00
+-- Dump completed on 2015-08-31 15:40:51
 
 -- Create useful index
 CREATE INDEX `ix_user_visit_srcip` ON `tb_user_visit_log`(`srcip`);

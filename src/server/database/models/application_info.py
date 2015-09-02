@@ -8,12 +8,12 @@ import json
 class ApplicationInfo(Model):
     __tablename__ = 'tb_application_info'
 
-    id = Column(String(256), primary_key=True)
+    id = Column(String(255), primary_key=True)
     resource = Column(String(1024), default=None)
-    name = Column(String(256), default=None)
-    author = Column(String(128), default=None)
-    comments = Column(String(256), default=None)
-    category_id = Column(String(256), ForeignKey('tb_application_category.id'))
+    name = Column(String(255), default=None)
+    author = Column(String(255), default=None)
+    comments = Column(String(1024), default=None)
+    category_id = Column(String(255), ForeignKey('tb_application_category.id'))
 
     def serialize(self):
         try:
