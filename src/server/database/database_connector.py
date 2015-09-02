@@ -161,7 +161,7 @@ class DBConnector(object):
             self.__scope_session.rollback()
 
     def execute(self, sql_commands):
-        self.__session_maker().execute(sql_commands)
+        return self.__session_maker().execute(sql_commands).fetchall()
 
     def __try_commit(self):
         try:
@@ -191,8 +191,10 @@ if __name__ == '__main__':
     from server.apps.x1tool_income_tax_calculator import *
     from server.apps.x1tool import *
     db_connector = DBConnector(MYSQL_DATABASE_URI)
-    db_connector.drop_db()
+    #db_connector.drop_db()
     db_connector.create_db()
+
+    print db_connector.execute('select * from tb_session_log')
 
 
     from server.apps.x1category import *
@@ -219,6 +221,6 @@ if __name__ == '__main__':
 
     db_connector.log_user_login(user_id, session_id, ip, address)
 
-    db_connector.log_user_logout(user_id, session_id)
+    #db_connector.log_user_logout(user_id, session_id)
 
     db_connector.log_application_usage(X1Tool.appid(), session_id, user_id, datetime.utcnow(), datetime.utcnow(), "{income:20000}", "{tax:3000}")
