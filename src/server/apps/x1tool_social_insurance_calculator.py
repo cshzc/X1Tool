@@ -7,7 +7,7 @@ from utils.lib_social_insurance_calculator import *
 
 class X1ToolSocialInsuranceCalculator(X1Tool):
     'appid: cb23bd0b08857ab32418cb5bf82381b70831cb90e183b5f62162ebd0e787c390'
-    DEFAULT_METADATA = {'name': "Social Insurance Calculator", 'author': "Ken", 'comments': "Enjoy it.", 'template': 'finance/income_tax.tpl', 'category': X1Category.FINANCE}
+    DEFAULT_METADATA = {'name': "Social Insurance Calculator", 'author': "Ken", 'comments': "Enjoy it.", 'template': 'finance/social_insurance.tpl', 'route': '/finance/social_insurance/', 'category': X1Category.FINANCE}
 
     def __init__(self, metadata=None):
         if metadata is None:
@@ -15,9 +15,10 @@ class X1ToolSocialInsuranceCalculator(X1Tool):
         super(self.__class__, self).__init__(metadata)
 
     def run(self, args):
+        print args
         if 'salary' in args:
-            if 'rate_table' in args:
-                return calculate_insurance(args['salary'], args['rate_table'])
+            if ('rate_table' in args) and (args['rate_table'] != ""):
+                return calculate_insurance(args['salary'], eval(args['rate_table']))
             else:
                 return calculate_insurance(args['salary'])
 

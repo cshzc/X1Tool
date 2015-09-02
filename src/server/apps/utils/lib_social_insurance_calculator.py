@@ -3,27 +3,31 @@
 PERSONAL_INSURANCE_RATE= {'pension': 0.08, #养老
                           'medical': 0.02, #医疗
                           'unemployment': 0.01, #失业
-                          'injury': 0, #工伤
-                          'fertility': 0.01, #生育
-                          'provident': 0.12, #公积金
+                          'occupational': 0, #工伤
+                          'maternity': 0.01, #生育
+                          'housing': 0.12, #公积金
                           'subsidy': 0.09}   #机关、事业单位住房补贴
 
 
 def calculate_insurance(salary, rate_table=None):
+    salary = float(salary)
     if rate_table is None:
         rate_table = PERSONAL_INSURANCE_RATE
     result = dict()
     total = 0
     for item in PERSONAL_INSURANCE_RATE:
+        print item
         result[item] = PERSONAL_INSURANCE_RATE[item] * salary
         if item in rate_table:
-            rate = rate_table[item]
-            if rate >= 0:
+            rate = float(rate_table[item])
+            print rate
+            if (rate >= 0) and (rate < 1):
                 result[item] = rate * salary
 
         total += result[item]
 
     result['total'] = total
+    print result
 
     return result
 
