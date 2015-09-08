@@ -423,7 +423,7 @@
                         total_commercial_discount_fee = (total_commercial_discount_fee * discount)
 
                     $("#total_commercial_discount_fee").text(total_commercial_discount_fee.toFixed(1))
-                    total_fee = parseFloat($("#total_basic_fee").text()) + total_commercial_discount_fee
+                    total_fee = parseFloat($("#total_basic_fee").text()) + total_commercial_discount_fee + parseFloat(car_price)
                     $("#total_fee").text(total_fee.toFixed(1))
                     $("#total").attr("style", "");
 
