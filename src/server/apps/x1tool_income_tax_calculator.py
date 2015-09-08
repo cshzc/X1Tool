@@ -67,7 +67,7 @@ if __name__ == '__main__':
     inputs2 = {'income_tax': 745}
     inputs3 = {'after_tax_income': 9255}
     inputs4 = {'pre_tax_income':10000, 'include_social_insurance': True}
-    inputs5 = {'pre_tax_income':10000, 'include_social_insurance': True, 'social_insurance_rate_table': { 'subsidy': 0}}
+    inputs5 = {'pre_tax_income':10000, 'include_social_insurance': True, 'social_insurance_rate_table': {'subsidy': 0}}
     print app.run(inputs1)
     print app.run(inputs2)
     print app.run(inputs3)

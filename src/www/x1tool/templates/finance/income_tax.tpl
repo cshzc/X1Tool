@@ -130,7 +130,7 @@
                             </span>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             <span id="housing_fee" style="color:#1C81C7"></span>
-			    <span><p><input type="checkbox" id="more"><label>机关、事业单位等补贴</label></p></span>
+			                <span><p><input type="checkbox" id="more"><label>机关、事业单位等住房补贴</label></p></span>
 			</td>
                     </tr>
                     <tr id="subsidy" style="display: none;">
