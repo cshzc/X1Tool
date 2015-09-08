@@ -15,22 +15,23 @@ class X1ToolSocialInsuranceCalculator(X1Tool):
         super(self.__class__, self).__init__(metadata)
 
     def run(self, args):
-        print args
         if 'salary' in args:
-            if 'rate_table' in args:
-                if args['rate_table'] != "":
-                    return calculate_insurance(args['salary'], eval(args['rate_table']))
-            else:
-                return calculate_insurance(args['salary'])
+            salary = args['salary']
+            rate_table = None
+            if ('rate_table' in args) and (args['rate_table'] != ""):
+                rate_table = eval(args['rate_table'])
+
+            personal = calculate_insurance(salary, rate_table)
+            company = calculate_insurance_company(salary, rate_table)
+            return dict(personal, **company)
 
         return None
 
 if __name__ == '__main__':
     inputs1 = {'salary': 7500}
-    inputs2 = {'salary': 10000, 'rate_table': {'provident': 0.08, 'subsidy': 0}}
+    inputs2 = {'salary': 10000, 'rate_table': "{'provident': 0.08, 'subsidy': 0}"}
     app = X1ToolSocialInsuranceCalculator()
     print app.appid()
     print app.metadata()
     print app.run(inputs1)
     print app.run(inputs2)
-

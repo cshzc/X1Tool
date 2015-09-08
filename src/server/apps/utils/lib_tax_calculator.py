@@ -1,27 +1,25 @@
 #!/usr/bin/env python
 # coding:utf-8
 
-'''????=??????? - ??? - �????�?� ???? - ?????, ????????????'''
 TAXABLE_BASE = 3500
+
+MAX_RATE = [0.45, 13505]
+MAX_TAXABLE_FLAG = 80001
+TAX_RATE_TABLE = [[0, 0, 0],
+                  [1500, 0.03, 0],
+                  [4500, 0.1, 105],
+                  [9000, 0.2, 555],
+                  [35000, 0.25, 1005],
+                  [55000, 0.3, 2775],
+                  [80000, 0.35, 5505]]
 
 
 def get_tax_rate_table_by_taxable(taxable):
-    if taxable > 80000:
-        return 0.45, 13505
-    elif 80000 >= taxable > 55000:
-        return 0.35, 5505
-    elif 55000 >= taxable > 35000:
-        return 0.3, 2775
-    elif 35000 >= taxable > 9000:
-        return 0.25, 1005
-    elif 9000 >= taxable > 4500:
-        return 0.2, 555
-    elif 4500 >= taxable > 1500:
-        return 0.1, 105
-    elif 1500 >= taxable > 0:
-        return 0.03, 0
-    else:
-        return 0, 0
+    for item in TAX_RATE_TABLE:
+        if taxable <= item[0]:
+            return item[-2:]
+
+    return MAX_RATE
 
 
 def __calculate_tax(taxable):
@@ -38,22 +36,11 @@ def calculate_after_tax_income(x):
 
 
 def get_tax_rate_table_by_tax(x):
-    if x > __calculate_tax(80000):
-        return get_tax_rate_table_by_taxable(80001)
-    if __calculate_tax(80000) >= x > __calculate_tax(55000):
-        return get_tax_rate_table_by_taxable(80000)
-    elif __calculate_tax(55000) >= x > __calculate_tax(35000):
-        return get_tax_rate_table_by_taxable(55000)
-    elif __calculate_tax(35000) >= x > __calculate_tax(9000):
-        return get_tax_rate_table_by_taxable(35000)
-    elif __calculate_tax(9000) >= x > __calculate_tax(4500):
-        return get_tax_rate_table_by_taxable(9000)
-    elif __calculate_tax(4500) >= x > __calculate_tax(1500):
-        return get_tax_rate_table_by_taxable(4500)
-    elif __calculate_tax(1500) >= x > __calculate_tax(0):
-        return get_tax_rate_table_by_taxable(1500)
-    else:
-        return get_tax_rate_table_by_taxable(0)
+    for item in TAX_RATE_TABLE:
+        if x < __calculate_tax(item[0]):
+            return get_tax_rate_table_by_taxable(item[0])
+
+    return MAX_RATE
 
 
 def calculate_income_by_tax(x):
@@ -65,22 +52,11 @@ def calculate_income_by_tax(x):
 
 
 def get_tax_rate_table_by_after_tax_income(x):
-    if x > __calculate_after_tax_income(80000):
-        return get_tax_rate_table_by_taxable(80001)
-    if __calculate_after_tax_income(80000) >= x > __calculate_after_tax_income(55000):
-        return get_tax_rate_table_by_taxable(80000)
-    elif __calculate_after_tax_income(55000) >= x > __calculate_after_tax_income(35000):
-        return get_tax_rate_table_by_taxable(55000)
-    elif __calculate_after_tax_income(35000) >= x > __calculate_after_tax_income(9000):
-        return get_tax_rate_table_by_taxable(35000)
-    elif __calculate_after_tax_income(9000) >= x > __calculate_after_tax_income(4500):
-        return get_tax_rate_table_by_taxable(9000)
-    elif __calculate_after_tax_income(4500) >= x > __calculate_after_tax_income(1500):
-        return get_tax_rate_table_by_taxable(4500)
-    elif __calculate_after_tax_income(1500) >= x > __calculate_after_tax_income(0):
-        return get_tax_rate_table_by_taxable(1500)
-    else:
-        return get_tax_rate_table_by_taxable(0)
+    for item in TAX_RATE_TABLE:
+        if x < __calculate_after_tax_income(item[0]):
+            return get_tax_rate_table_by_taxable(item[0])
+
+    return MAX_RATE
 
 
 def calculate_income_by_after_tax_income(x):

@@ -7,7 +7,7 @@
         <table>
             <tbody>
                 <tr>
-                    <td><label>月基本工资</label><td>
+                    <td><label>月基本工资</label></td>
                     <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><input class="form-control" id="salary" type="text" placeholder="收入额" required/></td>
                     <td>&nbsp;&nbsp;&nbsp;</td>
@@ -22,9 +22,11 @@
                     <th>缴费项目</th>
                     <th>
                         个人缴费明细
+                    </th>
+                    <th>
+                        单位缴费明细
                         <span style="font-size:12px;font-weight: normal;color:#1C81C7;padding-right:10px;">(单位：元)</span>
                     </th>
-
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +40,14 @@
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                         <span id="pension_fee" style="color:#1C81C7"></span>
                     </td>
+                    <td>
+                        <span>
+                            <input id="company_pension_rate" type="text" value="20">
+                            <label>%</label>
+                        </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span id="company_pension_fee" style="color:#1C81C7"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td>医疗</td>
@@ -49,6 +59,14 @@
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                         <span id="medical_fee" style="color:#1C81C7"></span>
                     </td>
+                    <td>
+                        <span>
+                            <input id="company_medical_rate" type="text" value="10">
+                            <label>%</label>
+                        </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span id="company_medical_fee" style="color:#1C81C7"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td>失业</td>
@@ -59,6 +77,14 @@
                         </span>
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                         <span id="unemployment_fee" style="color:#1C81C7"></span>
+                    </td>
+                    <td>
+                        <span>
+                            <input id="company_unemployment_rate"type="text" value="1">
+                            <label>%</label>
+                        </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span id="company_unemployment_fee" style="color:#1C81C7"></span>
                     </td>
                 </tr>
                 <tr>
@@ -73,6 +99,14 @@
                             <span id="occupational_fee" style="color:#1C81C7"></span>
                         </div>
                     </td>
+                    <td>
+                        <span>
+                            <input id="company_occupational_rate" class="ipt ime" type="text" value="0.5">
+                            <label>%</label>
+                        </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span id="company_occupational_fee" style="color:#1C81C7"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td>生育</td>
@@ -86,6 +120,14 @@
                             <span id="maternity_fee" style="color:#1C81C7"></span>
                         </div>
                     </td>
+                    <td>
+                        <span>
+                            <input id="company_maternity_rate" type="text" value="0.8">
+                            <label>%</label>
+                        </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span id="company_maternity_fee" style="color:#1C81C7"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td>公积金</td>
@@ -97,21 +139,44 @@
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                         <span id="housing_fee" style="color:#1C81C7"></span>
                     </td>
+                     <td>
+                        <span>
+                            <input id="company_housing_rate" type="text" value="12">
+                            <label>%</label>
+                        </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span id="company_housing_fee" style="color:#1C81C7"></span>
+                    </td>
                 </tr>
                 <tr>
+                    <td colspan=3>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span><p><input type="checkbox" id="more"><label>机关、事业单位等住房补贴</label></p></span>
+                    </td>
+                </tr>
+                <tr id="subsidy" style="display: none;">
                     <td>住房补贴</td>
                     <td>
                         <span>
-                            <input id="subsidy_rate" type="text" value="9">
+                            <input id="subsidy_rate" type="text" value="0">
                             <label>%</label>
                         </span>
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                         <span id="subsidy_fee" style="color:#1C81C7"></span>
                     </td>
+                    <td>
+                        <span>
+                            <input id="company_subsidy_rate" type="text" value="0">
+                            <label>%</label>
+                        </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span id="company_subsidy_fee" style="color:#1C81C7"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td><h4>合计</h4></td>
-                    <td> 个人缴纳：<b id="total_fee" style="text-decoration:underline;color:#1C81C7"></b>
+                    <td>个人缴纳:<b id="total_fee" style="text-decoration:underline;color:#1C81C7"></b></td>
+                    <td>公司缴纳:<b id="company_total_fee" style="text-decoration:underline;color:#1C81C7"></b></td>
                 </tr>
             </tbody>
         </table>
@@ -119,6 +184,17 @@
 </div>
 
 <script type="text/javascript">
+        $("#more").click(function () {
+            if ($("#subsidy").attr("style") == "display: none;") {
+                $("#subsidy").attr("style", "");
+		$("#subsidy input").val(9)
+            } else {
+                $("#subsidy").attr("style", "display: none;");
+		$("#subsidy input").val(0)
+	   }
+
+        });
+
     $(function(){
         $("#calculate").click(function() {
             // alert($("#value").val());
@@ -134,8 +210,11 @@
                 var inputs = $("#social_insurance input")
                 for (var i = 0; i < inputs.length; i++) {
                     var input = inputs[i];
-                    name = input.id.replace(/_.*/, '')
-                    rate_table[name] = parseFloat(input.value)/100
+                    if (input.type == 'text')
+                    {
+                        name = input.id.replace(/_rate/, '')
+                        rate_table[name] = parseFloat(input.value)/100
+                    }
                 }
 
 
