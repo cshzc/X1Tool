@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>X1 Tool</title>
+    <meta name="alexaVerifyID" content="DvpMmDgDi2RpRRCpEa8G6Znz1wc"/>
+    <title>X1 Tool, 一站式工具平台</title>
     <!-- Bootstrap Core CSS -->
     <link href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
@@ -15,6 +15,7 @@
     <link href="/static/dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="/static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/json-lint.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -79,7 +80,7 @@
                                 <a href="#"><i class="fa {{category.icon}} fa-fw"></i> {{tpl_data.utils.get_text(category.name)}}<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     {% for item in tpl_data.app_list[category.name] %}
-                                        <li><a appid="{{item.id}}" id="{{item.route.strip('/').replace('/', '-')}}" href="{{item.route}}">{{tpl_data.utils.get_text(item.name)}}</a></li>
+                                        <li><a appid="{{item.id}}" id="{{item.route.strip('/').replace('/', '-')}}" name= "{{item.name}}" href="{{item.route}}">{{tpl_data.utils.get_text(item.name)}}</a></li>
                                     {% endfor %}
                                 </ul>
                             </li>
@@ -94,6 +95,12 @@
         {% block content %}
         {% endblock %}
         </div>
+        <div style="text-align:center;">
+            <footer class="footer">
+                <p class="text-muted">浙ICP备15026218号-1</p>
+            </footer>
+        </div>
     </div>
+    
 </body>
 </html>
