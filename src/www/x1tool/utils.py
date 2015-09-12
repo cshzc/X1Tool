@@ -33,6 +33,7 @@ class Utils(object):
             'Car Purchase Calculator': u'购车预算计算器',
             'Currency Convertor': u'汇率转换器',
             'Mobile Number Locator': u'手机号码归属地查询',
+            'Housing Loan Calculator': u'房贷计算器',
         }
 
     def get_default_apps(self):
