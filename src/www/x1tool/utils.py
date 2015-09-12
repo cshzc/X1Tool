@@ -30,7 +30,9 @@ class Utils(object):
             'Tiny URL Generator': u'短地址生成器',
             'Code Lint': u'代码格式化',
             'Social Insurance Calculator': u'五险一金计算器',
-            'Car Purchase Calculator': u'购车预算计算器'
+            'Car Purchase Calculator': u'购车预算计算器',
+            'Currency Convertor': u'汇率转换器',
+            'Mobile Number Locator': u'手机号码归属地查询',
         }
 
     def get_default_apps(self):
