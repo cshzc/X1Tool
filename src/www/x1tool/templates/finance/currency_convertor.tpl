@@ -1,424 +1,443 @@
-{% extends "base.tpl" %}
+﻿{% extends "base.tpl" %}
 {% block content %}
 <br/>
 <div class="panel panel-info">
     <div class="panel-heading">汇率转换器</div>
         <div class="panel-body">
-            <table>
+			<table>
 				<tbody>
-                    <tr>
-                        <td><strong>兑换金额:</strong></td>
-                        <td><span>&nbsp;&nbsp;&nbsp;</span></td>
-                        <td><input class="form-control" type="text" id="amount"></td>
-                    </tr>
-                    <tr><td><br></td></tr>
-                    <tr>
-                        <td><strong>持有货币:</strong></td>
-                        <td><span>&nbsp;&nbsp;&nbsp;</span></td>
-                        <td>
-                            <select name="from_tkc" id="from_tkc" class="form-control">
-                            <option selected="selected" value="USD">美元(USD)</option>
-                            <option value="CNY">人民币(CNY)</option>
-                            <option value="otherCode">—其他货币—</option>
-                            <option value="EUR">欧元(EUR)</option>
-                            <option value="HKD">港元(HKD)</option>
-                            <option value="JPY">日元(JPY)</option>
-                            <option value="CAD">加元(CAD)</option>
-                            <option value="KRW">韩元(KRW)</option>
-                            <option value="THB">泰铢(THB)</option>
-                            <option value="TWD">台币(TWD)</option>
-                            <option value="GBP">英镑(GBP)</option>
-                            <option value="NLG">荷兰盾(NLG)</option>
-                            <option value="MOP">澳门元(MOP)</option>
-                            <option value="NZD">新西兰元(NZD)</option>
-                            <option value="SGD">新加坡元(SGD)</option>
-                            <option value="CZK">捷克克朗(CZK)</option>
-                            <option value="NOK">挪威克郎(NOK)</option>
-                            <option value="DKK">丹麦克郎(DKK)</option>
-                            <option value="DEM">德国马克(DEM)</option>
-                            <option value="SEK">瑞典克朗(SEK)</option>
-                            <option value="CHF">瑞士法郎(CHF)</option>
-                            <option value="INR">印度卢比(INR)</option>
-                            <option value="ITL">意大利里拉(ITL)</option>
-                            <option value="AUD">澳大利亚元(AUD)</option>
-                            <option value="PHP">菲律宾比索(PHP)</option>
-                            <option value="BEF">比利时法郎(BEF)</option>
-                            <option value="RUB">俄罗斯卢布(RUB)</option>
-                            <option value="otherCode">———</option>
-                            <option value="UGX">乌干达先令(UGX)</option>
-                            <option value="RON">罗马尼亚新列伊(RON)</option>
-                            <option value="TTD">特立尼达多巴哥元(TTD)</option>
-                            <option value="SHP">圣赫勒拿群岛磅(SHP)</option>
-                            <option value="KGS">吉尔吉斯斯坦索姆(KGS)</option>
-                            <option value="DJF">吉布提法郎(DJF)</option>
-                            <option value="BTN">不丹努扎姆(BTN)</option>
-                            <option value="ZAR">南非兰特(ZAR)</option>
-                            <option value="ILS">以色列新锡克尔(ILS)</option>
-                            <option value="SYP">叙利亚磅(SYP)</option>
-                            <option value="HTG">海地古德(HTG)</option>
-                            <option value="YER">也门里亚尔(YER)</option>
-                            <option value="UYU">乌拉圭比索(UYU)</option>
-                            <option value="BBD">巴巴多斯元(BBD)</option>
-                            <option value="XAU">盎司黄金(XAU)</option>
-                            <option value="EEK">爱沙尼亚克鲁恩(EEK)</option>
-                            <option value="FIM">芬兰马克(FIM)</option>
-                            <option value="MWK">马拉维克瓦查(MWK)</option>
-                            <option value="IDR">印尼盾(IDR)</option>
-                            <option value="ROL">罗马尼亚列伊(ROL)</option>
-                            <option value="PGK">巴布亚新几内亚基那(PGK)</option>
-                            <option value="SIT">斯洛文尼亚托拉尔(SIT)</option>
-                            <option value="XCD">格林纳达东加勒比元(XCD)</option>
-                            <option value="RWF">卢旺达法郎(RWF)</option>
-                            <option value="NGN">尼日利亚奈拉(NGN)</option>
-                            <option value="TMM">土库曼斯坦马纳特(TMM)</option>
-                            <option value="BSD">巴哈马元(BSD)</option>
-                            <option value="HRK">克罗地亚库纳(HRK)</option>
-                            <option value="COP">哥伦比亚比索(COP)</option>
-                            <option value="GEL">乔治亚拉里(GEL)</option>
-                            <option value="VUV">瓦努阿图瓦图(VUV)</option>
-                            <option value="FJD">斐济元(FJD)</option>
-                            <option value="MVR">马尔代夫罗非亚(MVR)</option>
-                            <option value="AZN">阿塞拜疆曼纳特(AZN)</option>
-                            <option value="MNT">蒙古图格里克(MNT)</option>
-                            <option value="MGA">马达加斯加阿里亚里(MGA)</option>
-                            <option value="IEP">爱尔兰镑(IEP)</option>
-                            <option value="SRG">苏里南盾(SRG)</option>
-                            <option value="KMF">科摩罗法郎(KMF)</option>
-                            <option value="GNF">几内亚法郎(GNF)</option>
-                            <option value="SBD">所罗门元(SBD)</option>
-                            <option value="KWD">科威特第纳尔(KWD)</option>
-                            <option value="BDT">孟加拉塔卡(BDT)</option>
-                            <option value="VEB">委内瑞拉博利瓦(VEB)</option>
-                            <option value="MMK">缅元(MMK)</option>
-                            <option value="TRL">土耳其里拉(TRL)</option>
-                            <option value="TJS">塔吉克斯坦索莫尼(TJS)</option>
-                            <option value="JOD">约旦第纳尔(JOD)</option>
-                            <option value="PAB">巴拿马巴波亚(PAB)</option>
-                            <option value="MDL">摩尔多瓦列伊(MDL)</option>
-                            <option value="CVE">佛得角埃斯库多(CVE)</option>
-                            <option value="CLP">智利比索(CLP)</option>
-                            <option value="KES">肯尼亚先令(KES)</option>
-                            <option value="SRD">苏里南元(SRD)</option>
-                            <option value="MUR">毛里求斯卢比(MUR)</option>
-                            <option value="LRD">利比里亚元(LRD)</option>
-                            <option value="SAR">沙特阿拉伯里亚尔(SAR)</option>
-                            <option value="ARS">阿根廷比索(ARS)</option>
-                            <option value="EGP">埃及镑(EGP)</option>
-                            <option value="PYG">巴拉圭瓜尼(PYG)</option>
-                            <option value="TRY">土耳其新里拉(TRY)</option>
-                            <option value="CDF">刚果法郎(CDF)</option>
-                            <option value="BMD">百慕大元(BMD)</option>
-                            <option value="OMR">阿曼里亚尔(OMR)</option>
-                            <option value="CUP">古巴比索(CUP)</option>
-                            <option value="NIO">尼加拉瓜科多巴(NIO)</option>
-                            <option value="GMD">冈比亚达拉西(GMD)</option>
-                            <option value="SKK">斯洛伐克克朗(SKK)</option>
-                            <option value="UZS">乌兹别克斯坦苏姆(UZS)</option>
-                            <option value="ZMK">赞比亚克瓦查(ZMK)</option>
-                            <option value="GTQ">危地马拉格查尔(GTQ)</option>
-                            <option value="NPR">尼泊尔卢比(NPR)</option>
-                            <option value="NAD">纳米比亚元(NAD)</option>
-                            <option value="XEU">欧元（旧）(XEU)</option>
-                            <option value="HUF">匈牙利福林(HUF)</option>
-                            <option value="LAK">老挝基普(LAK)</option>
-                            <option value="SZL">斯威士兰里兰吉尼(SZL)</option>
-                            <option value="UDI">沙特阿拉伯里亚尔(UDI)</option>
-                            <option value="MTL">马耳他里拉(MTL)</option>
-                            <option value="BND">文莱币(BND)</option>
-                            <option value="TZS">坦桑尼亚先令(TZS)</option>
-                            <option value="SDG">苏丹镑(SDG)</option>
-                            <option value="LSL">莱索托洛蒂(LSL)</option>
-                            <option value="KYD">开曼群岛币(KYD)</option>
-                            <option value="LKR">斯里兰卡卢比(LKR)</option>
-                            <option value="MKD">马其顿第纳尔(MKD)</option>
-                            <option value="MXN">墨西哥比索(MXN)</option>
-                            <option value="GHC">加纳塞第(GHC)</option>
-                            <option value="ISK">冰岛克郎(ISK)</option>
-                            <option value="LYD">利比亚第纳尔(LYD)</option>
-                            <option value="SLL">塞拉里昂利昂(SLL)</option>
-                            <option value="PKR">巴基斯坦卢比(PKR)</option>
-                            <option value="ANG">安第列斯群岛盾(ANG)</option>
-                            <option value="SCR">塞舌尔卢比(SCR)</option>
-                            <option value="ATS">奥地利先令(ATS)</option>
-                            <option value="LBP">黎巴嫩镑(LBP)</option>
-                            <option value="AED">阿联酋迪拉姆(AED)</option>
-                            <option value="GHS">新加纳塞第(GHS)</option>
-                            <option value="BOB">玻利维亚币(BOB)</option>
-                            <option value="ERN">厄立特里亚纳克法(ERN)</option>
-                            <option value="GIP">直布罗陀镑(GIP)</option>
-                            <option value="QAR">卡塔尔里亚尔(QAR)</option>
-                            <option value="BHD">巴林第纳尔(BHD)</option>
-                            <option value="IRR">伊朗里亚尔(IRR)</option>
-                            <option value="BWP">博茨瓦纳普拉(BWP)</option>
-                            <option value="HNL">洪都拉斯伦皮拉(HNL)</option>
-                            <option value="ALL">阿尔巴尼亚列克(ALL)</option>
-                            <option value="RSD">赛尔维亚第纳尔(RSD)</option>
-                            <option value="MYR">马来西亚林吉特(MYR)</option>
-                            <option value="ETB">埃塞俄比亚比尔(ETB)</option>
-                            <option value="STD">圣多美和普林西比多布拉(STD)</option>
-                            <option value="ADP">安道尔西班牙银币(ADP)</option>
-                            <option value="BGN">保加利亚列弗(BGN)</option>
-                            <option value="DOP">多米尼加比索(DOP)</option>
-                            <option value="AMD">亚美尼亚打兰(AMD)</option>
-                            <option value="XPF">法国太平洋法郎(XPF)</option>
-                            <option value="SDR">特别提款权(SDR)</option>
-                            <option value="JMD">牙买加元(JMD)</option>
-                            <option value="MRO">毛里塔尼亚乌吉亚(MRO)</option>
-                            <option value="ESP">加那利群岛比塞塔(ESP)</option>
-                            <option value="ZWD">津巴布韦元(ZWD)</option>
-                            <option value="LVL">拉脱维亚拉茨(LVL)</option>
-                            <option value="BIF">布隆迪法郎(BIF)</option>
-                            <option value="FRF">马提尼克法郎(FRF)</option>
-                            <option value="TND">突尼斯第纳尔(TND)</option>
-                            <option value="ECS">厄瓜多尔苏克雷(ECS)</option>
-                            <option value="VND">越南盾(VND)</option>
-                            <option value="GRD">希腊德拉克马(GRD)</option>
-                            <option value="PEN">秘鲁新索尔(PEN)</option>
-                            <option value="DZD">阿尔及利亚第纳尔(DZD)</option>
-                            <option value="MZN">莫桑比克梅蒂卡尔(MZN)</option>
-                            <option value="AWG">阿鲁巴弗罗林(AWG)</option>
-                            <option value="MZM">莫桑比克美提卡(MZM)</option>
-                            <option value="XOF">多哥非共体法郎(XOF)</option>
-                            <option value="PTE">葡萄牙埃斯库多(PTE)</option>
-                            <option value="KZT">哈萨克斯坦坚戈(KZT)</option>
-                            <option value="UAH">乌克兰赫夫米(UAH)</option>
-                            <option value="BZD">伯利兹元(BZD)</option>
-                            <option value="BAM">波斯尼亚(BAM)</option>
-                            <option value="MAD">摩洛哥迪拉姆(MAD)</option>
-                            <option value="BYR">白俄罗斯卢布(BYR)</option>
-                            <option value="LTL">立陶宛立特(LTL)</option>
-                            <option value="KHR">柬埔寨瑞尔(KHR)</option>
-                            <option value="XAF">西非法郎(XAF)</option>
-                            <option value="CYP">塞浦路斯镑(CYP)</option>
-                            <option value="GYD">圭亚那元(GYD)</option>
-                            <option value="BRL">巴西雷亚尔(BRL)</option>
-                            <option value="AFN">阿富汗尼(AFN)</option>
-                            <option value="CRC">哥斯达黎加科朗(CRC)</option>
-                            <option value="SVC">萨尔瓦多科朗(SVC)</option>
-                            <option value="IQD">伊拉克第纳尔(IQD)</option>
-                            <option value="PLN">波兰兹罗提(PLN)</option>
-                            <option value="SOS">索马里先令(SOS)</option>
-                            <option value="TOP">汤加潘加(TOP)</option>
-                            <option value="AOA">安哥拉宽扎(AOA)</option>
-                            <option value="LUF">卢森堡法郎(LUF)</option>
-                            <option value="KPW">朝鲜元(KPW)</option>
-                          </select>
-                        </td>
-                    </tr>
-                    <tr><td><br></td></tr>
-                    <tr>
-                        <td><strong>兑换货币:</strong></td>
-                        <td><span>&nbsp;&nbsp;&nbsp;</span></td>
-                        <td>
-                            <select name="to_tkc" id="to_tkc" class="form-control">
-                            <option selected="selected" value="CNY">人民币(CNY)</option>
-                            <option value="USD">美元(USD)</option>
-                            <option value="otherCode">—其他货币—</option>
-                            <option value="EUR">欧元(EUR)</option>
-                            <option value="HKD">港元(HKD)</option>
-                            <option value="JPY">日元(JPY)</option>
-                            <option value="CAD">加元(CAD)</option>
-                            <option value="KRW">韩元(KRW)</option>
-                            <option value="THB">泰铢(THB)</option>
-                            <option value="TWD">台币(TWD)</option>
-                            <option value="GBP">英镑(GBP)</option>
-                            <option value="NLG">荷兰盾(NLG)</option>
-                            <option value="MOP">澳门元(MOP)</option>
-                            <option value="NZD">新西兰元(NZD)</option>
-                            <option value="SGD">新加坡元(SGD)</option>
-                            <option value="CZK">捷克克朗(CZK)</option>
-                            <option value="NOK">挪威克郎(NOK)</option>
-                            <option value="DKK">丹麦克郎(DKK)</option>
-                            <option value="DEM">德国马克(DEM)</option>
-                            <option value="SEK">瑞典克朗(SEK)</option>
-                            <option value="CHF">瑞士法郎(CHF)</option>
-                            <option value="INR">印度卢比(INR)</option>
-                            <option value="ITL">意大利里拉(ITL)</option>
-                            <option value="AUD">澳大利亚元(AUD)</option>
-                            <option value="PHP">菲律宾比索(PHP)</option>
-                            <option value="BEF">比利时法郎(BEF)</option>
-                            <option value="RUB">俄罗斯卢布(RUB)</option>
-                            <option value="otherCode">———</option>
-                            <option value="UGX">乌干达先令(UGX)</option>
-                            <option value="RON">罗马尼亚新列伊(RON)</option>
-                            <option value="TTD">特立尼达多巴哥元(TTD)</option>
-                            <option value="SHP">圣赫勒拿群岛磅(SHP)</option>
-                            <option value="KGS">吉尔吉斯斯坦索姆(KGS)</option>
-                            <option value="DJF">吉布提法郎(DJF)</option>
-                            <option value="BTN">不丹努扎姆(BTN)</option>
-                            <option value="ZAR">南非兰特(ZAR)</option>
-                            <option value="ILS">以色列新锡克尔(ILS)</option>
-                            <option value="SYP">叙利亚磅(SYP)</option>
-                            <option value="HTG">海地古德(HTG)</option>
-                            <option value="YER">也门里亚尔(YER)</option>
-                            <option value="UYU">乌拉圭比索(UYU)</option>
-                            <option value="BBD">巴巴多斯元(BBD)</option>
-                            <option value="XAU">盎司黄金(XAU)</option>
-                            <option value="EEK">爱沙尼亚克鲁恩(EEK)</option>
-                            <option value="FIM">芬兰马克(FIM)</option>
-                            <option value="MWK">马拉维克瓦查(MWK)</option>
-                            <option value="IDR">印尼盾(IDR)</option>
-                            <option value="ROL">罗马尼亚列伊(ROL)</option>
-                            <option value="PGK">巴布亚新几内亚基那(PGK)</option>
-                            <option value="SIT">斯洛文尼亚托拉尔(SIT)</option>
-                            <option value="XCD">格林纳达东加勒比元(XCD)</option>
-                            <option value="RWF">卢旺达法郎(RWF)</option>
-                            <option value="NGN">尼日利亚奈拉(NGN)</option>
-                            <option value="TMM">土库曼斯坦马纳特(TMM)</option>
-                            <option value="BSD">巴哈马元(BSD)</option>
-                            <option value="HRK">克罗地亚库纳(HRK)</option>
-                            <option value="COP">哥伦比亚比索(COP)</option>
-                            <option value="GEL">乔治亚拉里(GEL)</option>
-                            <option value="VUV">瓦努阿图瓦图(VUV)</option>
-                            <option value="FJD">斐济元(FJD)</option>
-                            <option value="MVR">马尔代夫罗非亚(MVR)</option>
-                            <option value="AZN">阿塞拜疆曼纳特(AZN)</option>
-                            <option value="MNT">蒙古图格里克(MNT)</option>
-                            <option value="MGA">马达加斯加阿里亚里(MGA)</option>
-                            <option value="IEP">爱尔兰镑(IEP)</option>
-                            <option value="SRG">苏里南盾(SRG)</option>
-                            <option value="KMF">科摩罗法郎(KMF)</option>
-                            <option value="GNF">几内亚法郎(GNF)</option>
-                            <option value="SBD">所罗门元(SBD)</option>
-                            <option value="KWD">科威特第纳尔(KWD)</option>
-                            <option value="BDT">孟加拉塔卡(BDT)</option>
-                            <option value="VEB">委内瑞拉博利瓦(VEB)</option>
-                            <option value="MMK">缅元(MMK)</option>
-                            <option value="TRL">土耳其里拉(TRL)</option>
-                            <option value="TJS">塔吉克斯坦索莫尼(TJS)</option>
-                            <option value="JOD">约旦第纳尔(JOD)</option>
-                            <option value="PAB">巴拿马巴波亚(PAB)</option>
-                            <option value="MDL">摩尔多瓦列伊(MDL)</option>
-                            <option value="CVE">佛得角埃斯库多(CVE)</option>
-                            <option value="CLP">智利比索(CLP)</option>
-                            <option value="KES">肯尼亚先令(KES)</option>
-                            <option value="SRD">苏里南元(SRD)</option>
-                            <option value="MUR">毛里求斯卢比(MUR)</option>
-                            <option value="LRD">利比里亚元(LRD)</option>
-                            <option value="SAR">沙特阿拉伯里亚尔(SAR)</option>
-                            <option value="ARS">阿根廷比索(ARS)</option>
-                            <option value="EGP">埃及镑(EGP)</option>
-                            <option value="PYG">巴拉圭瓜尼(PYG)</option>
-                            <option value="TRY">土耳其新里拉(TRY)</option>
-                            <option value="CDF">刚果法郎(CDF)</option>
-                            <option value="BMD">百慕大元(BMD)</option>
-                            <option value="OMR">阿曼里亚尔(OMR)</option>
-                            <option value="CUP">古巴比索(CUP)</option>
-                            <option value="NIO">尼加拉瓜科多巴(NIO)</option>
-                            <option value="GMD">冈比亚达拉西(GMD)</option>
-                            <option value="SKK">斯洛伐克克朗(SKK)</option>
-                            <option value="UZS">乌兹别克斯坦苏姆(UZS)</option>
-                            <option value="ZMK">赞比亚克瓦查(ZMK)</option>
-                            <option value="GTQ">危地马拉格查尔(GTQ)</option>
-                            <option value="NPR">尼泊尔卢比(NPR)</option>
-                            <option value="NAD">纳米比亚元(NAD)</option>
-                            <option value="XEU">欧元（旧）(XEU)</option>
-                            <option value="HUF">匈牙利福林(HUF)</option>
-                            <option value="LAK">老挝基普(LAK)</option>
-                            <option value="SZL">斯威士兰里兰吉尼(SZL)</option>
-                            <option value="UDI">沙特阿拉伯里亚尔(UDI)</option>
-                            <option value="MTL">马耳他里拉(MTL)</option>
-                            <option value="BND">文莱币(BND)</option>
-                            <option value="TZS">坦桑尼亚先令(TZS)</option>
-                            <option value="SDG">苏丹镑(SDG)</option>
-                            <option value="LSL">莱索托洛蒂(LSL)</option>
-                            <option value="KYD">开曼群岛币(KYD)</option>
-                            <option value="LKR">斯里兰卡卢比(LKR)</option>
-                            <option value="MKD">马其顿第纳尔(MKD)</option>
-                            <option value="MXN">墨西哥比索(MXN)</option>
-                            <option value="GHC">加纳塞第(GHC)</option>
-                            <option value="ISK">冰岛克郎(ISK)</option>
-                            <option value="LYD">利比亚第纳尔(LYD)</option>
-                            <option value="SLL">塞拉里昂利昂(SLL)</option>
-                            <option value="PKR">巴基斯坦卢比(PKR)</option>
-                            <option value="ANG">安第列斯群岛盾(ANG)</option>
-                            <option value="SCR">塞舌尔卢比(SCR)</option>
-                            <option value="ATS">奥地利先令(ATS)</option>
-                            <option value="LBP">黎巴嫩镑(LBP)</option>
-                            <option value="AED">阿联酋迪拉姆(AED)</option>
-                            <option value="GHS">新加纳塞第(GHS)</option>
-                            <option value="BOB">玻利维亚币(BOB)</option>
-                            <option value="ERN">厄立特里亚纳克法(ERN)</option>
-                            <option value="GIP">直布罗陀镑(GIP)</option>
-                            <option value="QAR">卡塔尔里亚尔(QAR)</option>
-                            <option value="BHD">巴林第纳尔(BHD)</option>
-                            <option value="IRR">伊朗里亚尔(IRR)</option>
-                            <option value="BWP">博茨瓦纳普拉(BWP)</option>
-                            <option value="HNL">洪都拉斯伦皮拉(HNL)</option>
-                            <option value="ALL">阿尔巴尼亚列克(ALL)</option>
-                            <option value="RSD">赛尔维亚第纳尔(RSD)</option>
-                            <option value="MYR">马来西亚林吉特(MYR)</option>
-                            <option value="ETB">埃塞俄比亚比尔(ETB)</option>
-                            <option value="STD">圣多美和普林西比多布拉(STD)</option>
-                            <option value="ADP">安道尔西班牙银币(ADP)</option>
-                            <option value="BGN">保加利亚列弗(BGN)</option>
-                            <option value="DOP">多米尼加比索(DOP)</option>
-                            <option value="AMD">亚美尼亚打兰(AMD)</option>
-                            <option value="XPF">法国太平洋法郎(XPF)</option>
-                            <option value="SDR">特别提款权(SDR)</option>
-                            <option value="JMD">牙买加元(JMD)</option>
-                            <option value="MRO">毛里塔尼亚乌吉亚(MRO)</option>
-                            <option value="ESP">加那利群岛比塞塔(ESP)</option>
-                            <option value="ZWD">津巴布韦元(ZWD)</option>
-                            <option value="LVL">拉脱维亚拉茨(LVL)</option>
-                            <option value="BIF">布隆迪法郎(BIF)</option>
-                            <option value="FRF">马提尼克法郎(FRF)</option>
-                            <option value="TND">突尼斯第纳尔(TND)</option>
-                            <option value="ECS">厄瓜多尔苏克雷(ECS)</option>
-                            <option value="VND">越南盾(VND)</option>
-                            <option value="GRD">希腊德拉克马(GRD)</option>
-                            <option value="PEN">秘鲁新索尔(PEN)</option>
-                            <option value="DZD">阿尔及利亚第纳尔(DZD)</option>
-                            <option value="MZN">莫桑比克梅蒂卡尔(MZN)</option>
-                            <option value="AWG">阿鲁巴弗罗林(AWG)</option>
-                            <option value="MZM">莫桑比克美提卡(MZM)</option>
-                            <option value="XOF">多哥非共体法郎(XOF)</option>
-                            <option value="PTE">葡萄牙埃斯库多(PTE)</option>
-                            <option value="KZT">哈萨克斯坦坚戈(KZT)</option>
-                            <option value="UAH">乌克兰赫夫米(UAH)</option>
-                            <option value="BZD">伯利兹元(BZD)</option>
-                            <option value="BAM">波斯尼亚(BAM)</option>
-                            <option value="MAD">摩洛哥迪拉姆(MAD)</option>
-                            <option value="BYR">白俄罗斯卢布(BYR)</option>
-                            <option value="LTL">立陶宛立特(LTL)</option>
-                            <option value="KHR">柬埔寨瑞尔(KHR)</option>
-                            <option value="XAF">西非法郎(XAF)</option>
-                            <option value="CYP">塞浦路斯镑(CYP)</option>
-                            <option value="GYD">圭亚那元(GYD)</option>
-                            <option value="BRL">巴西雷亚尔(BRL)</option>
-                            <option value="AFN">阿富汗尼(AFN)</option>
-                            <option value="CRC">哥斯达黎加科朗(CRC)</option>
-                            <option value="SVC">萨尔瓦多科朗(SVC)</option>
-                            <option value="IQD">伊拉克第纳尔(IQD)</option>
-                            <option value="PLN">波兰兹罗提(PLN)</option>
-                            <option value="SOS">索马里先令(SOS)</option>
-                            <option value="TOP">汤加潘加(TOP)</option>
-                            <option value="AOA">安哥拉宽扎(AOA)</option>
-                            <option value="LUF">卢森堡法郎(LUF)</option>
-                            <option value="KPW">朝鲜元(KPW)</option>
-                          </select>
-                        </td>
-                    </tr>
-                    <tr><td></td></tr>
-                    <tr>
-                        <td><strong>兑换结果:</strong></td>
-                        <td><span>&nbsp;&nbsp;&nbsp;</span></td>
-                        <td><h5><input class="form-control" type="text" disabled="disabled" id="result"></h5></td>
-                    </tr>
-                    <tr>
-			<td colspan=2></td>
-                        <td><button class="btn btn-primary" id="calculate" type="submit">开始计算</button></td>
-                    </tr>
-                    <tr><td><p><br></p></td></tr>
-                    <tr align='center'>
-                        <td colspan=3><h5><label id="rate" style="color:#1C81C7"><h5></label></td>
-                    </tr>
-                </tbody>
-          </table>
+					<tr>
+						<td><strong>兑换金额:</strong></td>
+						<td><span>&nbsp;&nbsp;&nbsp;</span></td>
+						<td><input class="form-control" type="text" id="amount" value=1></td>
+					</tr>
+					<tr><td><br/></td></tr>
+					<tr>
+						<td><strong>持有货币:</strong></td>
+						<td><span>&nbsp;&nbsp;&nbsp;</span></td>
+						<td>
+							<select name="from_tkc" id="from_tkc" class="form-control">
+							<optgroup style="color:#000;background-color:#fff" label=常用货币>
+								<option value=CNY>人民币 Chinese Yuan Renminbi . CNY</option>
+								<option value=HKD>港元 Hong Kong Dollar . HKD</option>
+								<option value=TWD>台币 Taiwan Dollar . TWD</option>
+								<option value=EUR>欧元 Euro . EUR</option>
+								<option value=USD selected="selected" >美元 US Dollar . USD</option>
+								<option value=GBP>英镑 British Pound . GBP</option>
+								<option value=AUD>澳元 Australian Dollar . AUD</option>
+								<option value=KRW>韩元 South-Korean Won . KRW</option>
+								<option value=JPY>日元 Japanese Yen . JPY</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=A>
+								<option value=ALL>阿尔巴尼亚列克 Albanian Lek . ALL</option>
+								<option value=DZD>阿尔及利亚第纳尔 Algerian Dinar . DZD</option>
+								<option value=ARS>阿根廷比索 Argentine Peso . ARS</option>
+								<option value=AWG>阿鲁巴岛弗罗林 Aruba Florin . AWG</option>
+								<option value=AUD>澳元 Australian Dollar . AUD</option>
+								<option value=EGP>埃及镑 Egyptian Pound . EGP</option>
+								<option value=ETB>埃塞俄比亚比尔 Ethiopian Birr . ETB</option>
+								<option value=MOP>澳门元 Macau Pataca . MOP</option>
+								<option value=OMR>阿曼里亚尔 Omani Rial . OMR</option>
+								<option value=AED>阿联酋迪拉姆 UAE Dirham . AED</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=B>
+								<option value=BSD>巴哈马元 Bahamian Dollar . BSD</option>
+								<option value=BHD>巴林第纳尔 Bahraini Dinar . BHD</option>
+								<option value=BBD>巴巴多斯元 Barbados Dollar . BBD</option>
+								<option value=BYR>白俄罗斯卢布 Belarus Ruble . BYR</option>
+								<option value=BZD>伯利兹元 Belize Dollar . BZD</option>
+								<option value=BMD>百慕大元 Bermuda Dollar . BMD</option>
+								<option value=BTN>不丹卢比 Bhutan Ngultrum . BTN</option>
+								<option value=BOB>玻利维亚诺 Bolivian Boliviano . BOB</option>
+								<option value=BWP>博茨瓦纳普拉 Botswana Pula . BWP</option>
+								<option value=BRL>巴西里亚伊 Brazilian Real . BRL</option>
+								<option value=BGN>保加利亚列瓦 Bulgarian Lev . BGN</option>
+								<option value=BIF>布隆迪法郎 Burundi Franc . BIF</option>
+								<option value=ISK>冰岛克朗 Iceland Krona . ISK</option>
+								<option value=PKR>巴基斯坦卢比 Pakistani Rupee . PKR</option>
+								<option value=PAB>巴拿马巴尔博亚 Panama Balboa . PAB</option>
+								<option value=PGK>巴布亚新几内亚基那 Papua New Guinea Kina . PGK</option>
+								<option value=PYG>巴拉圭瓜拉尼 Paraguayan Guarani . PYG</option>
+								<option value=PLN>波兰兹罗提 Polish Zloty . PLN</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=C>
+								<option value=KPW>朝鲜圆 North Korean Won . KPW</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=D>
+								<option value=XOF>多哥非洲共同体法郎 CFA Franc BCEAO . XOF</option>
+								<option value=DKK>丹麦克朗 Danish Krone . DKK</option>
+								<option value=DOP>多米尼加比索 Dominican Peso . DOP</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=E>
+								<option value=RUB>俄罗斯卢布 Russian Rouble . RUB</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=F>
+								<option value=CVE>佛得角埃斯库多 Cape Verde Escudo . CVE</option>
+								<option value=FKP>福克兰群岛镑 Falkland Islands Pound . FKP</option>
+								<option value=FJD>斐济元 Fiji Dollar . FJD</option>
+								<option value=PHP>菲律宾比索 Philippine Peso . PHP</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=G>
+								<option value=XAF>刚果中非共同体法郎 CFA Franc BEAC . XAF</option>
+								<option value=COP>哥伦比亚比索 Colombian Peso . COP</option>
+								<option value=CRC>哥斯达黎加科朗 Costa Rica Colon . CRC</option>
+								<option value=CUP>古巴比索 Cuban Peso . CUP</option>
+								<option value=XCD>格林纳达东加勒比元 East Caribbean Dollar . XCD</option>
+								<option value=GMD>冈比亚达拉西 Gambian Dalasi . GMD</option>
+								<option value=GYD>圭亚那元 Guyana Dollar . GYD</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=H>
+								<option value=HTG>海地古德 Haiti Gourde . HTG</option>
+								<option value=HNL>洪都拉斯伦皮拉 Honduras Lempira . HNL</option>
+								<option value=KZT>哈萨克斯坦腾格 Kazakhstan Tenge . KZT</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=J>
+								<option value=KHR>柬埔寨利尔斯 Cambodia Riel . KHR</option>
+								<option value=CAD>加拿大元 Canadian Dollar . CAD</option>
+								<option value=CZK>捷克克朗 Czech Koruna . CZK</option>
+								<option value=DJF>吉布提法郎 Dijibouti Franc . DJF</option>
+								<option value=GNF>几内亚法郎 Guinea Franc . GNF</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=K>
+								<option value=KMF>科摩罗法郎 Comoros Franc . KMF</option>
+								<option value=HRK>克罗地亚库纳 Croatian Kuna . HRK</option>
+								<option value=KES>肯尼亚先令 Kenyan Shilling . KES</option>
+								<option value=KWD>科威特第纳尔 Kuwaiti Dinar . KWD</option>
+								<option value=QAR>卡塔尔利尔 Qatar Rial . QAR</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=L>
+								<option value=LAK>老挝基普 Lao Kip . LAK</option>
+								<option value=LVL>拉脱维亚拉图 Latvian Lats . LVL</option>
+								<option value=LBP>黎巴嫩镑 Lebanese Pound . LBP</option>
+								<option value=LSL>莱索托洛提 Lesotho Loti . LSL</option>
+								<option value=LRD>利比里亚元 Liberian Dollar . LRD</option>
+								<option value=LYD>利比亚第纳尔 Libyan Dinar . LYD</option>
+								<option value=LTL>立陶宛里塔斯 Lithuanian Litas . LTL</option>
+								<option value=ANG>列斯荷兰盾 Neth Antilles Guilder . ANG</option>
+								<option value=RON>罗马尼亚新列伊 Romanian New Leu . RON</option>
+								<option value=RWF>卢旺达法郎 Rwanda Franc . RWF</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=M>
+								<option value=BDT>孟加拉塔卡 Bangladesh Taka . BDT</option>
+								<option value=MKD>马其顿第纳尔 Macedonian Denar . MKD</option>
+								<option value=MWK>马拉维克瓦查 Malawi Kwacha . MWK</option>
+								<option value=MYR>马来西亚林吉特 Malaysian Ringgit . MYR</option>
+								<option value=MVR>马尔代夫卢非亚 Maldives Rufiyaa . MVR</option>
+								<option value=MRO>毛里塔尼亚乌吉亚 Mauritania Ougulya . MRO</option>
+								<option value=MUR>毛里求斯卢比 Mauritius Rupee . MUR</option>
+								<option value=MXN>墨西哥比索 Mexican Peso . MXN</option>
+								<option value=MDL>摩尔多瓦列伊 Moldovan Leu . MDL</option>
+								<option value=MNT>蒙古图格里克 Mongolian Tugrik . MNT</option>
+								<option value=MAD>摩洛哥道拉姆 Moroccan Dirham . MAD</option>
+								<option value=MMK>缅甸元 Myanmar Kyat . MMK</option>
+								<option value=PEN>秘鲁索尔 Peruvian Nuevo Sol . PEN</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=N>
+								<option value=NAD>纳米比亚元 Namibian Dollar . NAD</option>
+								<option value=NPR>尼泊尔卢比 Nepalese Rupee . NPR</option>
+								<option value=NIO>尼加拉瓜科多巴 Nicaragua Cordoba . NIO</option>
+								<option value=NGN>尼日利亚奈拉 Nigerian Naira . NGN</option>
+								<option value=NOK>挪威克朗 Norwegian Kroner . NOK</option>
+								<option value=ZAR>南非兰特 South African Rand . ZAR</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=R>
+								<option value=SEK>瑞典克朗 Swedish Krona . SEK</option>
+								<option value=CHF>瑞士法郎 Swiss Franc . CHF</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=S>
+								<option value=SVC>萨尔瓦多科朗 El Salvador Colon . SVC</option>
+								<option value=WST>萨摩亚塔拉 Samoa Tala . WST</option>
+								<option value=STD>圣多美多布拉 Sao Tome Dobra . STD</option>
+								<option value=SAR>沙特阿拉伯里亚尔 Saudi Arabian Riyal . SAR</option>
+								<option value=SCR>塞舌尔法郎 Seychelles Rupee . SCR</option>
+								<option value=SLL>塞拉利昂利昂 Sierra Leone Leone . SLL</option>
+								<option value=SBD>所罗门群岛元 Solomon Islands Dollar . SBD</option>
+								<option value=SOS>索马里先令 Somali Shilling . SOS</option>
+								<option value=LKR>斯里兰卡卢比 Sri Lanka Rupee . LKR</option>
+								<option value=SHP>圣赫勒拿群岛磅 St Helena Pound . SHP</option>
+								<option value=SZL>斯威士兰里兰吉尼 Swaziland Lilageni . SZL</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=T>
+								<option value=TRY>土耳其新里拉 New Turkish Lira . TRY</option>
+								<option value=XPF>太平洋法郎 Pacific Franc . XPF</option>
+								<option value=TZS>坦桑尼亚先令 Tanzanian Shilling . TZS</option>
+								<option value=THB>泰国铢 Thai Baht . THB</option>
+								<option value=TOP>汤加潘加 Tonga Pa'anga . TOP</option>
+								<option value=TTD>特立尼达和多巴哥元 Trinidad&Tobago Dollar . TTD</option>
+								<option value=TND>突尼斯第纳尔 Tunisian Dinar . TND</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=W>
+								<option value=BND>文莱元 Brunei Dollar . BND</option>
+								<option value=GTQ>危地马拉格查尔 Guatemala Quetzal . GTQ</option>
+								<option value=UAH>乌克兰赫夫米 Ukraine Hryvnia . UAH</option>
+								<option value=UYU>乌拉圭新比索 Uruguayan New Peso . UYU</option>
+								<option value=VUV>瓦努阿图瓦图 Vanuatu Vatu . VUV</option>
+								<option value=VND>越南盾 Vietnam Dong . VND</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=X>
+								<option value=HUF>匈牙利福林 Hungarian Forint . HUF</option>
+								<option value=NZD>新西兰元 New Zealand Dollar . NZD</option>
+								<option value=SGD>新加坡元 Singapore Dollar . SGD</option>
+								<option value=SYP>叙利亚镑 Syrian Pound . SYP</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=Y>
+								<option value=INR>印度卢比 Indian Rupee . INR</option>
+								<option value=IDR>印度尼西亚卢比(盾) Indonesian Rupiah . IDR</option>
+								<option value=IRR>伊朗里亚尔 Iran Rial . IRR</option>
+								<option value=IQD>伊拉克第纳尔 Iraqi Dinar . IQD</option>
+								<option value=ILS>以色列镑 Israeli Shekel . ILS</option>
+								<option value=JMD>牙买加元 Jamaican Dollar . JMD</option>
+								<option value=JOD>约旦第纳尔 Jordanian Dinar . JOD</option>
+								<option value=YER>也门里亚尔 Yemen Riyal . YER</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=Z>
+								<option value=CLP>智利比索 Chilean Peso . CLP</option>
+								<option value=GIP>直布罗陀镑 Gibraltar Pound . GIP</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=贵金属>
+								<option value=XCP>铜价盎司 Copper Ounces . XCP</option>
+								<option value=XAU>金价盎司 Gold Ounces . XAU</option>
+								<option value=XPD>钯价盎司 Palladium Ounces . XPD</option>
+								<option value=XPT>铂价盎司 Platinum Ounces . XPT</option>
+								<option value=XAG>银价盎司 Silver Ounces . XAG</option>
+							</optgroup>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td colspan=3></td>
+						<td align='center'>
+							<p class="fa fa-exchange" onclick="switchQ()"></p>
+						</td>
+					</tr>
+					<tr>
+						<td><strong>兑换货币:</strong></td>
+						<td><span>&nbsp;&nbsp;&nbsp;</span></td>
+						<td>
+							<select name="to_tkc" id="to_tkc" class="form-control">
+							<optgroup style="color:#000;background-color:#fff" label=常用货币>
+								<option value=CNY selected="selected">人民币 Chinese Yuan Renminbi . CNY</option>
+								<option value=HKD>港元 Hong Kong Dollar . HKD</option>
+								<option value=TWD>台币 Taiwan Dollar . TWD</option>
+								<option value=EUR>欧元 Euro . EUR</option>
+								<option value=USD>美元 US Dollar . USD</option>
+								<option value=GBP>英镑 British Pound . GBP</option>
+								<option value=AUD>澳元 Australian Dollar . AUD</option>
+								<option value=KRW>韩元 South-Korean Won . KRW</option>
+								<option value=JPY>日元 Japanese Yen . JPY</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=A>
+								<option value=ALL>阿尔巴尼亚列克 Albanian Lek . ALL</option>
+								<option value=DZD>阿尔及利亚第纳尔 Algerian Dinar . DZD</option>
+								<option value=ARS>阿根廷比索 Argentine Peso . ARS</option>
+								<option value=AWG>阿鲁巴岛弗罗林 Aruba Florin . AWG</option>
+								<option value=AUD>澳元 Australian Dollar . AUD</option>
+								<option value=EGP>埃及镑 Egyptian Pound . EGP</option>
+								<option value=ETB>埃塞俄比亚比尔 Ethiopian Birr . ETB</option>
+								<option value=MOP>澳门元 Macau Pataca . MOP</option>
+								<option value=OMR>阿曼里亚尔 Omani Rial . OMR</option>
+								<option value=AED>阿联酋迪拉姆 UAE Dirham . AED</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=B>
+								<option value=BSD>巴哈马元 Bahamian Dollar . BSD</option>
+								<option value=BHD>巴林第纳尔 Bahraini Dinar . BHD</option>
+								<option value=BBD>巴巴多斯元 Barbados Dollar . BBD</option>
+								<option value=BYR>白俄罗斯卢布 Belarus Ruble . BYR</option>
+								<option value=BZD>伯利兹元 Belize Dollar . BZD</option>
+								<option value=BMD>百慕大元 Bermuda Dollar . BMD</option>
+								<option value=BTN>不丹卢比 Bhutan Ngultrum . BTN</option>
+								<option value=BOB>玻利维亚诺 Bolivian Boliviano . BOB</option>
+								<option value=BWP>博茨瓦纳普拉 Botswana Pula . BWP</option>
+								<option value=BRL>巴西里亚伊 Brazilian Real . BRL</option>
+								<option value=BGN>保加利亚列瓦 Bulgarian Lev . BGN</option>
+								<option value=BIF>布隆迪法郎 Burundi Franc . BIF</option>
+								<option value=ISK>冰岛克朗 Iceland Krona . ISK</option>
+								<option value=PKR>巴基斯坦卢比 Pakistani Rupee . PKR</option>
+								<option value=PAB>巴拿马巴尔博亚 Panama Balboa . PAB</option>
+								<option value=PGK>巴布亚新几内亚基那 Papua New Guinea Kina . PGK</option>
+								<option value=PYG>巴拉圭瓜拉尼 Paraguayan Guarani . PYG</option>
+								<option value=PLN>波兰兹罗提 Polish Zloty . PLN</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=C>
+								<option value=KPW>朝鲜圆 North Korean Won . KPW</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=D>
+								<option value=XOF>多哥非洲共同体法郎 CFA Franc BCEAO . XOF</option>
+								<option value=DKK>丹麦克朗 Danish Krone . DKK</option>
+								<option value=DOP>多米尼加比索 Dominican Peso . DOP</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=E>
+								<option value=RUB>俄罗斯卢布 Russian Rouble . RUB</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=F>
+								<option value=CVE>佛得角埃斯库多 Cape Verde Escudo . CVE</option>
+								<option value=FKP>福克兰群岛镑 Falkland Islands Pound . FKP</option>
+								<option value=FJD>斐济元 Fiji Dollar . FJD</option>
+								<option value=PHP>菲律宾比索 Philippine Peso . PHP</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=G>
+								<option value=XAF>刚果中非共同体法郎 CFA Franc BEAC . XAF</option>
+								<option value=COP>哥伦比亚比索 Colombian Peso . COP</option>
+								<option value=CRC>哥斯达黎加科朗 Costa Rica Colon . CRC</option>
+								<option value=CUP>古巴比索 Cuban Peso . CUP</option>
+								<option value=XCD>格林纳达东加勒比元 East Caribbean Dollar . XCD</option>
+								<option value=GMD>冈比亚达拉西 Gambian Dalasi . GMD</option>
+								<option value=GYD>圭亚那元 Guyana Dollar . GYD</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=H>
+								<option value=HTG>海地古德 Haiti Gourde . HTG</option>
+								<option value=HNL>洪都拉斯伦皮拉 Honduras Lempira . HNL</option>
+								<option value=KZT>哈萨克斯坦腾格 Kazakhstan Tenge . KZT</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=J>
+								<option value=KHR>柬埔寨利尔斯 Cambodia Riel . KHR</option>
+								<option value=CAD>加拿大元 Canadian Dollar . CAD</option>
+								<option value=CZK>捷克克朗 Czech Koruna . CZK</option>
+								<option value=DJF>吉布提法郎 Dijibouti Franc . DJF</option>
+								<option value=GNF>几内亚法郎 Guinea Franc . GNF</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=K>
+								<option value=KMF>科摩罗法郎 Comoros Franc . KMF</option>
+								<option value=HRK>克罗地亚库纳 Croatian Kuna . HRK</option>
+								<option value=KES>肯尼亚先令 Kenyan Shilling . KES</option>
+								<option value=KWD>科威特第纳尔 Kuwaiti Dinar . KWD</option>
+								<option value=QAR>卡塔尔利尔 Qatar Rial . QAR</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=L>
+								<option value=LAK>老挝基普 Lao Kip . LAK</option>
+								<option value=LVL>拉脱维亚拉图 Latvian Lats . LVL</option>
+								<option value=LBP>黎巴嫩镑 Lebanese Pound . LBP</option>
+								<option value=LSL>莱索托洛提 Lesotho Loti . LSL</option>
+								<option value=LRD>利比里亚元 Liberian Dollar . LRD</option>
+								<option value=LYD>利比亚第纳尔 Libyan Dinar . LYD</option>
+								<option value=LTL>立陶宛里塔斯 Lithuanian Litas . LTL</option>
+								<option value=ANG>列斯荷兰盾 Neth Antilles Guilder . ANG</option>
+								<option value=RON>罗马尼亚新列伊 Romanian New Leu . RON</option>
+								<option value=RWF>卢旺达法郎 Rwanda Franc . RWF</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=M>
+								<option value=BDT>孟加拉塔卡 Bangladesh Taka . BDT</option>
+								<option value=MKD>马其顿第纳尔 Macedonian Denar . MKD</option>
+								<option value=MWK>马拉维克瓦查 Malawi Kwacha . MWK</option>
+								<option value=MYR>马来西亚林吉特 Malaysian Ringgit . MYR</option>
+								<option value=MVR>马尔代夫卢非亚 Maldives Rufiyaa . MVR</option>
+								<option value=MRO>毛里塔尼亚乌吉亚 Mauritania Ougulya . MRO</option>
+								<option value=MUR>毛里求斯卢比 Mauritius Rupee . MUR</option>
+								<option value=MXN>墨西哥比索 Mexican Peso . MXN</option>
+								<option value=MDL>摩尔多瓦列伊 Moldovan Leu . MDL</option>
+								<option value=MNT>蒙古图格里克 Mongolian Tugrik . MNT</option>
+								<option value=MAD>摩洛哥道拉姆 Moroccan Dirham . MAD</option>
+								<option value=MMK>缅甸元 Myanmar Kyat . MMK</option>
+								<option value=PEN>秘鲁索尔 Peruvian Nuevo Sol . PEN</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=N>
+								<option value=NAD>纳米比亚元 Namibian Dollar . NAD</option>
+								<option value=NPR>尼泊尔卢比 Nepalese Rupee . NPR</option>
+								<option value=NIO>尼加拉瓜科多巴 Nicaragua Cordoba . NIO</option>
+								<option value=NGN>尼日利亚奈拉 Nigerian Naira . NGN</option>
+								<option value=NOK>挪威克朗 Norwegian Kroner . NOK</option>
+								<option value=ZAR>南非兰特 South African Rand . ZAR</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=R>
+								<option value=SEK>瑞典克朗 Swedish Krona . SEK</option>
+								<option value=CHF>瑞士法郎 Swiss Franc . CHF</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=S>
+								<option value=SVC>萨尔瓦多科朗 El Salvador Colon . SVC</option>
+								<option value=WST>萨摩亚塔拉 Samoa Tala . WST</option>
+								<option value=STD>圣多美多布拉 Sao Tome Dobra . STD</option>
+								<option value=SAR>沙特阿拉伯里亚尔 Saudi Arabian Riyal . SAR</option>
+								<option value=SCR>塞舌尔法郎 Seychelles Rupee . SCR</option>
+								<option value=SLL>塞拉利昂利昂 Sierra Leone Leone . SLL</option>
+								<option value=SBD>所罗门群岛元 Solomon Islands Dollar . SBD</option>
+								<option value=SOS>索马里先令 Somali Shilling . SOS</option>
+								<option value=LKR>斯里兰卡卢比 Sri Lanka Rupee . LKR</option>
+								<option value=SHP>圣赫勒拿群岛磅 St Helena Pound . SHP</option>
+								<option value=SZL>斯威士兰里兰吉尼 Swaziland Lilageni . SZL</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=T>
+								<option value=TRY>土耳其新里拉 New Turkish Lira . TRY</option>
+								<option value=XPF>太平洋法郎 Pacific Franc . XPF</option>
+								<option value=TZS>坦桑尼亚先令 Tanzanian Shilling . TZS</option>
+								<option value=THB>泰国铢 Thai Baht . THB</option>
+								<option value=TOP>汤加潘加 Tonga Pa'anga . TOP</option>
+								<option value=TTD>特立尼达和多巴哥元 Trinidad&Tobago Dollar . TTD</option>
+								<option value=TND>突尼斯第纳尔 Tunisian Dinar . TND</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=W>
+								<option value=BND>文莱元 Brunei Dollar . BND</option>
+								<option value=GTQ>危地马拉格查尔 Guatemala Quetzal . GTQ</option>
+								<option value=UAH>乌克兰赫夫米 Ukraine Hryvnia . UAH</option>
+								<option value=UYU>乌拉圭新比索 Uruguayan New Peso . UYU</option>
+								<option value=VUV>瓦努阿图瓦图 Vanuatu Vatu . VUV</option>
+								<option value=VND>越南盾 Vietnam Dong . VND</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=X>
+								<option value=HUF>匈牙利福林 Hungarian Forint . HUF</option>
+								<option value=NZD>新西兰元 New Zealand Dollar . NZD</option>
+								<option value=SGD>新加坡元 Singapore Dollar . SGD</option>
+								<option value=SYP>叙利亚镑 Syrian Pound . SYP</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=Y>
+								<option value=INR>印度卢比 Indian Rupee . INR</option>
+								<option value=IDR>印度尼西亚卢比(盾) Indonesian Rupiah . IDR</option>
+								<option value=IRR>伊朗里亚尔 Iran Rial . IRR</option>
+								<option value=IQD>伊拉克第纳尔 Iraqi Dinar . IQD</option>
+								<option value=ILS>以色列镑 Israeli Shekel . ILS</option>
+								<option value=JMD>牙买加元 Jamaican Dollar . JMD</option>
+								<option value=JOD>约旦第纳尔 Jordanian Dinar . JOD</option>
+								<option value=YER>也门里亚尔 Yemen Riyal . YER</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=Z>
+								<option value=CLP>智利比索 Chilean Peso . CLP</option>
+								<option value=GIP>直布罗陀镑 Gibraltar Pound . GIP</option>
+							</optgroup>
+							<optgroup style="color:#000;background-color:#fff" label=贵金属>
+								<option value=XCP>铜价盎司 Copper Ounces . XCP</option>
+								<option value=XAU>金价盎司 Gold Ounces . XAU</option>
+								<option value=XPD>钯价盎司 Palladium Ounces . XPD</option>
+								<option value=XPT>铂价盎司 Platinum Ounces . XPT</option>
+								<option value=XAG>银价盎司 Silver Ounces . XAG</option>
+							</optgroup>
+							</select>
+						</td>
+					</tr>
+					<tr><td><br/></td></tr>
+					<tr>
+						<td><strong>兑换结果:</strong></td>
+						<td><span>&nbsp;&nbsp;&nbsp;</span></td>
+						<td><h5><input class="form-control" type="text" disabled="disabled" id="result"></h5></td>
+					</tr>
+					<tr>
+						<td colspan=2></td>
+						<td><button class="btn btn-primary" id="calculate" type="submit">开始计算</button></td>
+					</tr>
+					<tr><td><p><br></p></td></tr>
+					<tr align='center'>
+						<td colspan=4><h5><label id="rate" style="color:#1C81C7"></label><br/><small><label id="update_time"></label></small><h5></td>
+					</tr>
+					<tr><td><p><br></p></td></tr>
+					<tr align='center'>
+						<td colspan=4><strong><span id="trend_title"></span></strong></td>
+					</tr>
+					<tr align='right'>
+						<td colspan=4><img src="" id="trend_img" style="display:none;"/></td>
+					</tr>
+				</tbody>
+		  </table>
     </div>
 </div>
 
 <script type="text/javascript">
+function switchQ(){
+	var i = document.getElementById("from_tkc").selectedIndex;
+	var j = document.getElementById("to_tkc").selectedIndex;
+
+	document.getElementById("from_tkc").selectedIndex = j;
+	document.getElementById("to_tkc").selectedIndex = i;
+
+}
+
 $(function(){
         $("#calculate").click(function() {
             // alert($("#value").val());
@@ -434,25 +453,51 @@ $(function(){
                 to_tkc = $("#to_tkc").val()
 				$("#result").val("")
                 var post_data = {app_id: appid, amount:amount, from_tkc:from_tkc, to_tkc:to_tkc}
-                $("#rate").text("正在查询最新汇率信息...");
-		$("#calculate").attr("disabled", "disabled");
-		$.post(route, post_data, function(data){
-                    var response = eval('(' + data + ')');
-                    try
-                    {
-                        rate = response['rate']
-                        time = response['time']
-                        rate_des = '1' + $("#from_tkc").find("option:selected").text() + " = " + rate + " " + $("#to_tkc").find("option:selected").text()  + " " + time
-                        $("#rate").text(rate_des)
-                        $("#result").val(parseFloat(response['result']).toFixed(2));
-                    }
-                    catch(e)
-                    {
-                     	//alert(e.name + ": " + e.message);
-			$("#rate").text("查询失败，请稍后重新查询")
-                    }
-                });
-	      $("#calculate").removeAttr("disabled");
+
+				$("#rate").text("正在查询最新汇率信息...");
+				$("#update_time").text("");
+				$("#trend_img").attr("style", "display:none;");
+				$("#trend_title").text("");
+				$("#calculate").attr("disabled", "disabled");
+				$.post(route, post_data, function(data){
+					rate = null;
+					time = null;
+					try
+					{
+						var response = eval('(' + data + ')');
+						rate = response['rate'];
+						time = Date(response['time']);
+					}
+					catch(e)
+					{
+						//alert(e.name + ": " + e.message);
+					}
+					
+					if (rate)
+					{
+						var from = $("#from_tkc").find("option:selected").text().split(".")[0];
+						var to = $("#to_tkc").find("option:selected").text().split(".")[0];
+						var rate_des = '1' + from + " = " + rate + " " + to;
+						$("#rate").text(rate_des)
+						if (time){
+							$("#update_time").text(time.toLocaleString())
+						}
+						$("#result").val(parseFloat(response['result']).toFixed(2));
+						
+						var trend_title = "年度汇率走势图";
+						$("#trend_title").text(trend_title);
+						var img_src = "http://ichart.finance.yahoo.com/1y?" + from_tkc + to_tkc + "=x&lang=zh-Hant-HK";
+						$("#trend_img").attr("src", img_src);
+						$("#trend_img").removeAttr("style");
+					}
+					else
+					{
+						$("#rate").text("查询失败，请稍后重新查询")
+						$("#update_time").text(Date().toLocaleString())
+					}
+					
+					$("#calculate").removeAttr("disabled");
+				});
             }
         });
     });
