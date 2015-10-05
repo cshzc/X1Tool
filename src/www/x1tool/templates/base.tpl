@@ -8,13 +8,13 @@
     <meta name="alexaVerifyID" content="DvpMmDgDi2RpRRCpEa8G6Znz1wc"/>
     <title>X1 Tool, 一站式工具平台</title>
     <!-- Bootstrap Core CSS -->
-    <link href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
-    <link href="/static/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/metisMenu/2.1.0/metisMenu.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="/static/dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="/static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/static/css/json-lint.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,11 +23,11 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- jQuery -->
-    <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="/static/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="http://cdn.bootcss.com/metisMenu/2.1.0/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="/static/dist/js/sb-admin-2.js"></script>
     <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1256060940'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1256060940%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
@@ -48,13 +48,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">X1 TOOL</a>
+                <a class="navbar-brand" href="/">X1 Tool</a>
                 <ul class="nav navbar-top-links navbar-right">
-                	<li class="dropdown" style="padding-top: 15px;">
-                    	<iframe name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=52&icon=1&num=3" width="180" height="25" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" sandbox=""></iframe>
-                	</li>
-            	</ul>
+                    <li style="padding-top: 15px;">
+                        <iframe name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=52&icon=1&num=3" width="180" height="25" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" sandbox=""></iframe>
+                    </li>
+                </ul>
             </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li style="padding-top: 15px;">
+                    <button class="btn btn-xs btn-danger" id="stock" data-toggle="tooltip" data-placement="bottom" title="上证指数">上证: NaN</button>
+                </li>
+                <li style="padding-top: 15px;">
+                    <button class="btn btn-xs btn-danger" id="stock_sz" data-toggle="tooltip" data-placement="bottom" title="深证成指">深成: NaN</button>
+                </li>
+            </ul>
+
+            
             
             {% endblock %}
             {% block sidebar_nav %}
@@ -103,4 +113,78 @@
     </div>
     
 </body>
+<!-- <script type="text/javascript" src="http://hq.sinajs.cn/list=s_sh000001" id="my_script"></script> -->
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout('set_sh_stock()', 0);
+        setTimeout('set_sz_stock()', 0);
+        setTimeout('set_sh_stock()', 500);
+        setTimeout('set_sz_stock()', 500);
+        setInterval('set_sh_stock()' , 10000);
+        setInterval('set_sz_stock()' , 10000);
+    });
+
+    var hq_str_s_sh000001 = '';
+    var hq_str_s_sz399001 = '';
+
+    function set_sz_stock() {
+        if ($("my_script_sz")) {
+            $("#my_script_sz").remove();
+        }
+
+        var head = document.getElementsByTagName("head").item(0); 
+        oScript = document.createElement("script");  
+        oScript.setAttribute("src", "http://hq.sinajs.cn/list=s_sz399001");  
+        oScript.setAttribute("id", "my_script_sz");  
+        oScript.setAttribute("type", "text/javascript");  
+        head.appendChild(oScript);  
+
+        index = parseFloat(hq_str_s_sz399001.split(',')[1]);
+        margin = parseFloat(hq_str_s_sz399001.split(',')[2]);
+        
+        if (margin < 0) {
+            // Decreased
+            $("#stock_sz").removeClass("btn-danger");
+            $("#stock_sz").addClass("btn-success");
+        } else {
+            // Increased
+            $("#stock_sz").removeClass("btn-success");
+            $("#stock_sz").addClass("btn-danger");
+        }
+
+        $("#stock_sz").text("深成: " + index);
+
+    }
+
+    function set_sh_stock() {
+
+        if ($("my_script")) {
+            $("#my_script").remove();
+        }
+
+        var head = document.getElementsByTagName("head").item(0); 
+        oScript = document.createElement("script");  
+        oScript.setAttribute("src", "http://hq.sinajs.cn/list=s_sh000001");  
+        oScript.setAttribute("id", "my_script");  
+        oScript.setAttribute("type", "text/javascript");  
+        head.appendChild(oScript);  
+
+        index = parseFloat(hq_str_s_sh000001.split(',')[1]);
+        margin = parseFloat(hq_str_s_sh000001.split(',')[2]);
+        
+        if (margin < 0) {
+            // Decreased
+            $("#stock").removeClass("btn-danger");
+            $("#stock").addClass("btn-success");
+        } else {
+            // Increased
+            $("#stock").removeClass("btn-success");
+            $("#stock").addClass("btn-danger");
+        }
+
+        $("#stock").text("上证: " + index);
+    }
+</script>
+
 </html>
