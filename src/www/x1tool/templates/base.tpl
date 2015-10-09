@@ -30,19 +30,18 @@
     <script src="http://cdn.bootcss.com/metisMenu/2.1.0/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="/static/dist/js/sb-admin-2.js"></script>
-    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1256060940'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1256060940%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-        document.getElementById("cnzz_stat_icon_1256060940").style.display = "none";
-    </script>
+    <script src="/static/js/stock.js"></script>
 </head>
 {% endblock %}
 
 <body>
     <div id="wrapper">
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        {% block navagation %}
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" id="navagator">
             {% block logo %}
             <div class="navbar-header">
-            	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -55,7 +54,7 @@
                     </li>
                 </ul>
             </div>
-            <ul class="nav navbar-top-links navbar-right">
+            <ul class="nav navbar-top-links navbar-right" id="stock_bar">
                 <li style="padding-top: 15px;">
                     <button class="btn btn-xs btn-danger" id="stock" data-toggle="tooltip" data-placement="bottom" title="上证指数">上证: NaN</button>
                 </li>
@@ -63,10 +62,8 @@
                     <button class="btn btn-xs btn-danger" id="stock_sz" data-toggle="tooltip" data-placement="bottom" title="深证成指">深成: NaN</button>
                 </li>
             </ul>
-
-            
-            
             {% endblock %}
+            
             {% block sidebar_nav %}
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
@@ -75,10 +72,10 @@
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
-                                	<button class="btn btn-default" type="button">
-                                    	<i class="fa fa-search"></i>
-                                	</button>
-                            	</span>
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
                             </div>
                             <!-- /input-group -->
                         </li>
@@ -101,90 +98,29 @@
             </div>
             {% endblock %}
         </nav>
+        {% endblock %}
+
         <div id="page-wrapper">
         {% block content %}
+            <br/>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    {% block content_name %}
+                    {% endblock %}
+                    {% include 'comments.tpl' ignore missing %}
+                </div>
+                {% block content_main %}
+                {% endblock %}
+                {% block content_script %}
+                {% endblock %}
+            </div>
         {% endblock %}
         </div>
-        <div style="text-align:center;">
-            <footer class="footer">
-                <p class="text-muted">浙ICP备15026218号-1</p>
-            </footer>
-        </div>
+        <hr>
+        {% block footer %}
+            {% include 'footer.tpl' ignore missing %}
+        {% endblock %}
     </div>
-    
 </body>
-<!-- <script type="text/javascript" src="http://hq.sinajs.cn/list=s_sh000001" id="my_script"></script> -->
-
-<script type="text/javascript">
-    $(function(){
-        setTimeout('set_sh_stock()', 0);
-        setTimeout('set_sz_stock()', 0);
-        setTimeout('set_sh_stock()', 500);
-        setTimeout('set_sz_stock()', 500);
-        setInterval('set_sh_stock()' , 10000);
-        setInterval('set_sz_stock()' , 10000);
-    });
-
-    var hq_str_s_sh000001 = '';
-    var hq_str_s_sz399001 = '';
-
-    function set_sz_stock() {
-        if ($("my_script_sz")) {
-            $("#my_script_sz").remove();
-        }
-
-        var head = document.getElementsByTagName("head").item(0); 
-        oScript = document.createElement("script");  
-        oScript.setAttribute("src", "http://hq.sinajs.cn/list=s_sz399001");  
-        oScript.setAttribute("id", "my_script_sz");  
-        oScript.setAttribute("type", "text/javascript");  
-        head.appendChild(oScript);  
-
-        index = parseFloat(hq_str_s_sz399001.split(',')[1]);
-        margin = parseFloat(hq_str_s_sz399001.split(',')[2]);
-        
-        if (margin < 0) {
-            // Decreased
-            $("#stock_sz").removeClass("btn-danger");
-            $("#stock_sz").addClass("btn-success");
-        } else {
-            // Increased
-            $("#stock_sz").removeClass("btn-success");
-            $("#stock_sz").addClass("btn-danger");
-        }
-
-        $("#stock_sz").text("深成: " + index);
-
-    }
-
-    function set_sh_stock() {
-
-        if ($("my_script")) {
-            $("#my_script").remove();
-        }
-
-        var head = document.getElementsByTagName("head").item(0); 
-        oScript = document.createElement("script");  
-        oScript.setAttribute("src", "http://hq.sinajs.cn/list=s_sh000001");  
-        oScript.setAttribute("id", "my_script");  
-        oScript.setAttribute("type", "text/javascript");  
-        head.appendChild(oScript);  
-
-        index = parseFloat(hq_str_s_sh000001.split(',')[1]);
-        margin = parseFloat(hq_str_s_sh000001.split(',')[2]);
-        
-        if (margin < 0) {
-            // Decreased
-            $("#stock").removeClass("btn-danger");
-            $("#stock").addClass("btn-success");
-        } else {
-            // Increased
-            $("#stock").removeClass("btn-success");
-            $("#stock").addClass("btn-danger");
-        }
-
-        $("#stock").text("上证: " + index);
-    }
-</script>
 
 </html>

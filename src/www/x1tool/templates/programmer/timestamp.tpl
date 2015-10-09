@@ -1,30 +1,33 @@
 {% extends "base.tpl" %}
-{% block content %}
-</br>
-<div class="panel panel-info">
-    <div class="panel-heading">Unix时间戳</div>
-    <div class="panel-body">
-        <form role="form">
-            <div class="form-group">
-                当前时间戳: <label id="current_timestamp"></label>
-            </div>
-        </form>
-        <div>
-            <input class=" form-control" id="input" type="text" placeholder="示例: 2014-06-10 22:20:00 或者 1437658880" />
+
+{% block content_name %}
+Unix时间戳
+{% endblock %}
+
+{% block content_main %}
+<div class="panel-body">
+    <form role="form">
+        <div class="form-group">
+            当前时间戳: <label id="current_timestamp"></label>
         </div>
-        <br/>
-        <div>
-            <input class=" form-control" id="result" type="text" placeholder="结果" />
-        </div>
-        <br/>
-        <div>
-            <button class="btn btn-primary" id="trans" type="submit">转换</button>
-        </div>
+    </form>
+    <div>
+        <input class=" form-control" id="input" type="text" placeholder="示例: 2014-06-10 22:20:00 或者 1437658880" />
     </div>
-    <!-- /.panel-body -->
+    <br/>
+    <div>
+        <input class=" form-control" id="result" type="text" placeholder="结果" />
+    </div>
+    <br/>
+    <div>
+        <button class="btn btn-primary" id="trans" type="submit">转换</button>
+    </div>
 </div>
-  
+{% endblock %}
+
+{% block content_script %}
 <script type="text/javascript">
+    var appid = $("#programmer-timestamp").attr('appid')
     $(function(){
         setNow();
         setInterval('setNow()' , 1000);
