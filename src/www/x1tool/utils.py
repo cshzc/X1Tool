@@ -115,7 +115,9 @@ class Utils(object):
         return JSONEncoder().encode(dict_out)
 
     def add_a_comment(self, app_id, comment):
-        db.log_comment(app_id, comment)
+        # TODO: Get user name by uid
+        name = '匿名'
+        db.log_comment(name, app_id, comment)
         return self.get_all_comments(app_id)
 
     def add_donate_record(self, name, amount):

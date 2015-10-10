@@ -99,23 +99,24 @@
             {% endblock %}
         </nav>
         {% endblock %}
-
-        <div id="page-wrapper">
-        {% block content %}
-            <br/>
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    {% block content_name %}
+        {% block center %}
+            <div id="page-wrapper">
+            {% block content %}
+                <br/>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        {% block content_name %}
+                        {% endblock %}
+                        {% include 'comments.tpl' ignore missing %}
+                    </div>
+                    {% block content_main %}
                     {% endblock %}
-                    {% include 'comments.tpl' ignore missing %}
+                    {% block content_script %}
+                    {% endblock %}
                 </div>
-                {% block content_main %}
-                {% endblock %}
-                {% block content_script %}
-                {% endblock %}
+            {% endblock %}
             </div>
         {% endblock %}
-        </div>
         <hr>
         {% block footer %}
             {% include 'footer.tpl' ignore missing %}

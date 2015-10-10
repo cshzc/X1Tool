@@ -162,9 +162,9 @@ class DBConnector(object):
             logging.error(str(e))
             self.__scope_session.rollback()
 
-    def log_comment(self, app_id, comment):
+    def log_comment(self, name, app_id, comment):
         try:
-            commnet_log = Comments(name='匿名', time=datetime.utcnow(), appid=app_id, comment=comment)
+            commnet_log = Comments(name=name, time=datetime.utcnow(), appid=app_id, comment=comment)
             self.__scope_session.add(commnet_log)
             self.__try_commit()
         except Exception, e:
@@ -227,7 +227,7 @@ if __name__ == '__main__':
     mysql_db_config = {
         'host': 'localhost',
         'user': 'root',
-        'passwd': 'tre!##1.',
+        'passwd': '',
         'db': 'TestX1Tool',
         'charset': 'utf8'
     }
@@ -276,5 +276,5 @@ if __name__ == '__main__':
 
     db_connector.log_application_usage(X1Tool.appid(), session_id, user_id, datetime.utcnow(), datetime.utcnow(), "{income:20000}", "{tax:3000}")
 	
-    db_connector.log_donate("Ken", "100", session_id, user_id)
+    db_connector.log_donate("Tom", "100", session_id, user_id)
 	
