@@ -127,3 +127,17 @@ CREATE TABLE `tb_user_visit_log` (
 
 -- Create useful index
 CREATE INDEX `ix_user_visit_srcip` ON `tb_user_visit_log`(`srcip`);
+
+DROP TABLE IF EXISTS `tb_comments`;
+CREATE TABLE `tb_comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `time` datetime NOT NULL,
+  `appid` varchar(255) DEFAULT NULL,
+  `uid` varchar(255) DEFAULT NULL,
+  `comment` varchar(4095) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `appid` (`appid`),
+  KEY `uid` (`uid`),
+  CONSTRAINT tb_comments_ibfk_1 FOREIGN KEY (`appid`) REFERENCES tb_application_info (`id`);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

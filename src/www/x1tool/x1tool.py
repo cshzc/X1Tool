@@ -28,36 +28,65 @@ tpl_data = {
 # print category_list
 # print app_list
 
+
 def write_log(string):
     log = open('flask.log', 'a')
     log.write(string + '\n')
     log.close()
 
+
 ''' Wrapper of render_template
 '''
 def render_x1_template(tpl = 'index.tpl', tpl_data = tpl_data):
     try:
-        return render_template(tpl, tpl_data = tpl_data)
+        return render_template(tpl, tpl_data=tpl_data)
     except:
-        return render_template('coming.tpl', tpl_data = tpl_data)
+        return render_template('coming.tpl', tpl_data=tpl_data)
+
 
 @auth.get_password
 def get_password(username):
     if username == 'admin':
-        return 'citrix'
+        return 'password'
     return None
+
 
 @X1Tool.route('/')
 def default():
     return render_x1_template('index.tpl')
 
+
 @X1Tool.route('/x1admin/', methods=['GET', 'POST'])
-#@auth.login_required
+@auth.login_required
 def admin():
     if request.method == 'GET':
         return render_x1_template('/admin/admin.tpl')
     else:
         return utils.get_admin_result(request.form['type'])
+
+
+@X1Tool.route('/exhibition/about_us/', methods=['GET', 'POST'])
+def about_us():
+    return render_x1_template('/exhibition/about_us.tpl')
+
+
+@X1Tool.route('/exhibition/donate_us/', methods=['GET', 'POST'])
+def donate_us():
+    if request.method == 'GET':
+        donate_records = utils.get_donate_records()
+        print donate_records 
+        return render_template('/exhibition/donate_us.tpl', tpl_data=tpl_data, donate_records=donate_records)
+    else:
+        return utils.add_donate_record(request.form['name'], request.form['amount'])
+
+@X1Tool.route('/comments/get/', methods=['POST'])
+def get_all_comments():
+    return utils.get_all_comments(request.form['app_id'])
+
+@X1Tool.route('/comments/add/', methods=['POST'])
+def add_a_comment():
+    return utils.add_a_comment(request.form['app_id'], request.form['comment'])
+
 
 @X1Tool.route('/customize/', methods=['GET', 'POST'])
 def customize():
@@ -75,6 +104,7 @@ def customize():
         else:
             redirect(url_for('/'))
 
+
 def request_handler():
     request_path = request.path
     category, app = request_path.strip('/').split('/')
@@ -87,11 +117,12 @@ def request_handler():
 
 for (category_name, category) in app_list.items():
     for app_info in category:
-        X1Tool.add_url_rule(app_info['route'], view_func = request_handler, methods=['GET', 'POST'])
+        X1Tool.add_url_rule(app_info['route'], view_func=request_handler, methods=['GET', 'POST'])
+
 
 @X1Tool.url_value_preprocessor
 def session_preprocessor(endpoint, values):
     X1Server.pre_process(request)
 
 if __name__ == '__main__':
-    X1Tool.run('0.0.0.0', 8080)
+    X1Tool.run('0.0.0.0', 8888)
