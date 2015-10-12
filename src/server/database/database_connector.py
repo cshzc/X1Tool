@@ -6,6 +6,8 @@ from models.session_log import *
 from models.application_usage_log import *
 from models.use_visity_log import *
 from models.application_category import *
+from models.donate_record import *
+from models.comments import *
 
 from datetime import *
 from sqlalchemy import *
@@ -160,6 +162,55 @@ class DBConnector(object):
             logging.error(str(e))
             self.__scope_session.rollback()
 
+    def log_comment(self, name, app_id, comment):
+        try:
+            commnet_log = Comments(name=name, time=datetime.utcnow(), appid=app_id, comment=comment)
+            self.__scope_session.add(commnet_log)
+            self.__try_commit()
+        except Exception, e:
+            print e
+            logging.error(str(e))
+            self.__scope_session.rollback()
+
+    def log_donate(self, real_name, donate_amount, session_id, user_id, cur_status=0):
+        print real_name
+    
+        try:
+            record_time = datetime.utcnow()
+            max_records_per_period = 5
+            donate_interval = 1 * 3600
+            donate_records = self.__scope_session.query(DonateRecord).filter_by(uid=user_id, sid=session_id).order_by(desc(DonateRecord.time)).limit(max_records_per_period).all()
+                print donate_records
+            override = False
+            count = len(donate_records)
+            if (donate_records is not None) and (count > 0):
+               count = len(donate_records)
+               donate_record = donate_records[0]
+               diff = (record_time - donate_record.time).total_seconds()
+               if (diff < donate_interval):
+              if diff <= 20:
+                 override = True
+              else:
+                  if (count >= max_records_per_period):
+                 donate_record = donate_records[-1]
+                     if (record_time - donate_record.time).total_seconds() < donate_interval:
+                        override = True
+    
+            print override          
+            if override:
+               donate_record.name = real_name
+               donate_record.amount = donate_amount
+               donate_record.time = record_time    
+                   donate_record.status = cur_status
+            else:
+                   donate_record = DonateRecord(name=real_name, amount=donate_amount, time=record_time, sid=session_id, uid=user_id, status=cur_status)
+                   self.__scope_session.add(donate_record)
+            
+                self.__try_commit()
+        except Exception, e:
+            logging.error(str(e))
+            self.__scope_session.rollback()
+                
     def execute(self, sql_commands):
         return self.__session_maker().execute(sql_commands).fetchall()
 
@@ -191,10 +242,11 @@ if __name__ == '__main__':
     from server.apps.x1tool_income_tax_calculator import *
     from server.apps.x1tool import *
     db_connector = DBConnector(MYSQL_DATABASE_URI)
-    db_connector.drop_db()
+    #db_connector.drop_db()
     db_connector.create_db()
 
     print db_connector.execute('select * from tb_session_log')
+
 
     from server.apps.x1category import *
     db_connector.register_category(X1Category.FINANCE, get_category(X1Category.FINANCE))
@@ -220,6 +272,9 @@ if __name__ == '__main__':
 
     db_connector.log_user_login(user_id, session_id, ip, address)
 
-    db_connector.log_user_logout(user_id, session_id)
+    #db_connector.log_user_logout(user_id, session_id)
 
     db_connector.log_application_usage(X1Tool.appid(), session_id, user_id, datetime.utcnow(), datetime.utcnow(), "{income:20000}", "{tax:3000}")
+    
+    db_connector.log_donate("Tom", "100", session_id, user_id)
+    

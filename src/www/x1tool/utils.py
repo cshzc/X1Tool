@@ -4,9 +4,12 @@ from json import *
 import logging
 import datetime
 
-# sys.path.append('/opt/x1tool')
+#sys.path.append('/opt/x1tool')
 from server.x1server import *
 from server.database.database_connector import *
+from flask import session
+from dateutil import tz
+from dateutil.tz import tzlocal
 
 db = DBConnector(MYSQL_DATABASE_URI)
 
@@ -34,7 +37,7 @@ class Utils(object):
             'Currency Convertor': u'汇率转换器',
             'Mobile Number Locator': u'手机号码归属地查询',
             'Housing Loan Calculator': u'房贷计算器',
-        }
+    }
 
     def get_default_apps(self):
 
@@ -90,6 +93,68 @@ class Utils(object):
     def get_result(self, app_id, args):
         return X1Server.process_request(app_id, args)
 
+    def get_all_comments(self, app_id):
+        raw_out = db.execute('SELECT name, time, comment FROM tb_comments WHERE appid = "%s" ORDER BY time DESC' % app_id)
+        # UTC Zone
+        from_zone = tz.gettz('UTC')
+        # China Zone
+        to_zone = tz.gettz('CST')
+        dict_out = {}
+        for i in xrange(len(raw_out)):
+            row_item = []
+            for item in raw_out[i]:
+                # Convert datatime.datetime to date string
+                if type(item) == datetime:
+                    item = item.replace(tzinfo=from_zone)
+                    # Convert time zone
+                    local = item.astimezone(to_zone)
+                    row_item.append(datetime.strftime(local, "%Y-%m-%d %H:%M:%S"))
+                else:
+                    row_item.append(item)
+            dict_out[i] = row_item
+        return JSONEncoder().encode(dict_out)
+
+    def add_a_comment(self, app_id, comment):
+        # TODO: Get user name by uid
+        name = '匿名'
+        db.log_comment(name, app_id, comment)
+        return self.get_all_comments(app_id)
+
+    def add_donate_record(self, name, amount):
+        try:
+            db.log_donate(name, amount, session.sid, session['uid'])
+            return '{response: success}'
+        except Exception, e:
+            return '{error: {0}}' % str(e)
+
+    def get_donate_records(self):
+        raw_out = db.execute('SELECT name, amount, time, status FROM tb_donate_record where (status=\'1\') or (sid=\'%s\' and uid=\'%s\')' % (session.sid, session['uid']))
+        selected_data = []
+        # UTC Zone
+        from_zone = tz.gettz('UTC')
+        # China Zone
+        to_zone = tz.gettz('CST')
+        STATUS_DESCRIPTION = [u"等待确认", u"打赏成功", u"打赏失败"]
+        for i in xrange(len(raw_out)):
+            row_item = []
+            for k in xrange(len(raw_out[i])):
+                item = raw_out[i][k]
+        if k == 3:
+            item = STATUS_DESCRIPTION[int(item)]
+
+        # Convert datatime.datetime to date string
+        if type(item) == datetime:
+            item = item.replace(tzinfo=from_zone)
+            # Convert time zone
+            local = item.astimezone(to_zone)
+            row_item.append(datetime.strftime(local, "%Y-%m-%d %H:%M:%S"))
+        else:
+            row_item.append(item)
+
+            selected_data.append(row_item)
+
+        return JSONEncoder().encode(selected_data)
+
     def get_admin_result(self, admin_type):
         raw_out = db.execute('SELECT * FROM tb_%s' % admin_type)
         dict_out = {}
@@ -104,3 +169,6 @@ class Utils(object):
             dict_out[i] = row_item
         return JSONEncoder().encode(dict_out)
 
+if __name__ == "__main__":
+    utils = Utils()
+    utils.get_donate_records()

@@ -1,162 +1,167 @@
 ﻿{% extends "base.tpl" %}
-{% block content %}
-<br/>
-<div class="panel panel-info">
-    <div class="panel-heading">个税计算器</div>
-    <div class="panel-body">
-        <div>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            <select class="form-control" id="type">
-                                <option>税前收入</option>
-                                <option>税后收入</option>
-                                <option>纳税额</option>
-                            </select>
-                        </td>
-                        <td>&nbsp;&nbsp;&nbsp;</td>
-                        <td><input class="form-control" id="value" type="text" placeholder="收入额" required/></td>
-                        <td>&nbsp;&nbsp;</td>
-                        <td><button class="btn btn-primary" id="calculate" type="submit">开始计算</button></td>
-                        <td>&nbsp;&nbsp;&nbsp;</td>
-                        <td><input type="checkbox" id="enable_social_insurance"><label>五险一金</label></td>
-                    </tr>
-                    <tr><td><p><br/></p></td></tr>
-                </tbody>
-            </table>
-        </div>
-        <div>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <!-- <th></th> -->
-                            <th>税前收入</th>
-                            <th>应纳税额</th>
-                            <th>税后收入</th>
-                        
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td id="pre_tax_income_value">-</td>
-                            <td id="income_tax_value">-</td>
-                            <td id="after_tax_income_value">-</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-lg-6" id="social_insurance" style="display: none;">
-            <div style="text-align:center;"><h4><b>五险一金缴费明细<small>(可调整参数)</small></b></h4></div>
-            <table class="table table-striped table-bordered table-hover">
+
+{% block content_name %}
+个税计算器
+{% endblock %}
+
+{% block content_main %}
+<div class="panel-body">
+    <div>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <select class="form-control" id="type">
+                            <option>税前收入</option>
+                            <option>税后收入</option>
+                            <option>纳税额</option>
+                        </select>
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+                    <td><input class="form-control" id="value" type="text" placeholder="收入额" required/></td>
+                    <td>&nbsp;&nbsp;</td>
+                    <td><button class="btn btn-primary" id="calculate" type="submit">开始计算</button></td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+                    <td><input type="checkbox" id="enable_social_insurance"><label>五险一金</label></td>
+                </tr>
+                <tr><td><p><br/></p></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <div class="table-responsive">
+            <table class="table">
                 <thead>
                     <tr>
-                        <th>缴费项目</th>
-                        <th>
-                            个人缴费明细
-                            <small style="color:#1C81C7">(单位：元)</small>
-                        </th>
-
+                        <!-- <th></th> -->
+                        <th>税前收入</th>
+                        <th>应纳税额</th>
+                        <th>税后收入</th>
+                    
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>养老</td>
-                        <td>
-                            <span>
-                                <input id="pension_rate" type="text" value="8">
-                                <label>%</label>
-                            </span>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <span id="pension_fee" style="color:#1C81C7"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>医疗</td>
-                        <td>
-                            <span>
-                                <input id="medical_rate" type="text" value="2">
-                                <label>%</label>
-                            </span>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <span id="medical_fee" style="color:#1C81C7"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>失业</td>
-                        <td>
-                            <span>
-                                <input id="unemployment_rate"type="text" value="1">
-                                <label>%</label>
-                            </span>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <span id="unemployment_fee" style="color:#1C81C7"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>工伤</td>
-                        <td>
-                            <div style="visibility: hidden;">
-                                <span>
-                                    <input id="occupational_rate" class="ipt ime" type="text" disabled="disabled" value="0">
-                                    <label>%</label>
-                                </span>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <span id="occupational_fee" style="color:#1C81C7"></span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>生育</td>
-                        <td>
-                            <div style="visibility: hidden;">
-                                <span>
-                                    <input id="maternity_rate" type="text" disabled="disabled" value="0">
-                                    <label>%</label>
-                                </span>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <span id="maternity_fee" style="color:#1C81C7"></span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>公积金</td>
-                        <td>
-                            <span>
-                                <input id="housing_rate" type="text" value="12">
-                                <label>%</label>
-                            </span>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <span id="housing_fee" style="color:#1C81C7"></span>
-			                <span><p><input type="checkbox" id="more"><label>机关、事业单位等住房补贴</label></p></span>
-			</td>
-                    </tr>
-                    <tr id="subsidy" style="display: none;">
-                        <td>住房补贴</td>
-                        <td>
-                            <!--<div style="visibility: hidden;">-->
-                                <span>
-                                    <input id="subsidy_rate" type="text" value="0">
-                                    <label>%</label>
-                                </span>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <span id="subsidy_fee" style="color:#1C81C7"></span>
-                            <!--</div>-->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><h4>合计</h4></td>
-                        <td> 个人缴纳：<b id="total_fee" style="text-decoration:underline;color:#1C81C7"></b>
+                        <td id="pre_tax_income_value">-</td>
+                        <td id="income_tax_value">-</td>
+                        <td id="after_tax_income_value">-</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-</div>
+    <div class="col-lg-6" id="social_insurance" style="display: none;">
+        <div style="text-align:center;"><h4><b>五险一金缴费明细<small>(可调整参数)</small></b></h4></div>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>缴费项目</th>
+                    <th>
+                        个人缴费明细
+                        <small style="color:#1C81C7">(单位：元)</small>
+                    </th>
 
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>养老</td>
+                    <td>
+                        <span>
+                            <input id="pension_rate" type="text" value="8">
+                            <label>%</label>
+                        </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span id="pension_fee" style="color:#1C81C7"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>医疗</td>
+                    <td>
+                        <span>
+                            <input id="medical_rate" type="text" value="2">
+                            <label>%</label>
+                        </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span id="medical_fee" style="color:#1C81C7"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>失业</td>
+                    <td>
+                        <span>
+                            <input id="unemployment_rate"type="text" value="1">
+                            <label>%</label>
+                        </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span id="unemployment_fee" style="color:#1C81C7"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>工伤</td>
+                    <td>
+                        <div style="visibility: hidden;">
+                            <span>
+                                <input id="occupational_rate" class="ipt ime" type="text" disabled="disabled" value="0">
+                                <label>%</label>
+                            </span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <span id="occupational_fee" style="color:#1C81C7"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>生育</td>
+                    <td>
+                        <div style="visibility: hidden;">
+                            <span>
+                                <input id="maternity_rate" type="text" disabled="disabled" value="0">
+                                <label>%</label>
+                            </span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <span id="maternity_fee" style="color:#1C81C7"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>公积金</td>
+                    <td>
+                        <span>
+                            <input id="housing_rate" type="text" value="12">
+                            <label>%</label>
+                        </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span id="housing_fee" style="color:#1C81C7"></span>
+            <span><p><input type="checkbox" id="more"><label>机关、事业单位等补贴</label></p></span>
+        </td>
+                </tr>
+                <tr id="subsidy" style="display: none;">
+                    <td>住房补贴</td>
+                    <td>
+                        <!--<div style="visibility: hidden;">-->
+                            <span>
+                                <input id="subsidy_rate" type="text" value="0">
+                                <label>%</label>
+                            </span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <span id="subsidy_fee" style="color:#1C81C7"></span>
+                        <!--</div>-->
+                    </td>
+                </tr>
+                <tr>
+                    <td><h4>合计</h4></td>
+                    <td style="vertical-align:middle;"> 个人缴纳：<b id="total_fee" style="text-decoration:underline;color:#1C81C7"></b>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block content_script %}
 <script type="text/javascript">
+    var route = $("#finance-income_tax").attr('href')
+    var appid = $("#finance-income_tax").attr('appid')
     $(function(){
         $("#enable_social_insurance").click(function () {
             if ($("#social_insurance").attr("style") == "display: none;") {
@@ -170,11 +175,11 @@
         $("#more").click(function () {
             if ($("#subsidy").attr("style") == "display: none;") {
                 $("#subsidy").attr("style", "");
-		$("#subsidy input").val(9)
+        $("#subsidy input").val(9)
             } else {
                 $("#subsidy").attr("style", "display: none;");
-		$("#subsidy input").val(0)
-	   }
+        $("#subsidy input").val(0)
+       }
             
         });
 
@@ -182,8 +187,6 @@
             // alert($("#value").val());
             var input_value = $("#value").val();
             var input_type = $("#type").val();
-            var route = $("#finance-income_tax").attr('href')
-            var appid = $("#finance-income_tax").attr('appid')
             
             if (input_value == "" || isNaN(input_value)) {
                 alert("请输入正确的数字");
